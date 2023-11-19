@@ -24,7 +24,9 @@ add_executable(${PROJECT_NAME} main.cpp
 
 # --- SDL2 SETUP ---
 set(CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/cmake/modules)
-set(SDL2_PATH "D:/WindowsPrograms/Libraries/SDL2")
+
+set(SDL2_PATH "C:/Users/bjarn/libary/SDL2")
+#set(SDL2_PATH "D:/WindowsPrograms/Libraries/SDL2")
 
 find_package(SDL2 REQUIRED)
 include_directories(${SDL2_INCLUDE_DIR})

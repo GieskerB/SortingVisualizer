@@ -35,13 +35,13 @@
 			{
 				"command" : 1,
 				"file" : 0,
-				"line" : 31,
+				"line" : 33,
 				"parent" : 0
 			},
 			{
 				"command" : 2,
 				"file" : 0,
-				"line" : 30,
+				"line" : 32,
 				"parent" : 0
 			}
 		]
@@ -59,7 +59,7 @@
 			[
 				{
 					"backtrace" : 3,
-					"path" : "D:/WindowsPrograms/Libraries/SDL2/include/SDL2"
+					"path" : "C:/Users/bjarn/libary/SDL2/include/SDL2"
 				}
 			],
 			"language" : "CXX",
@@ -117,12 +117,12 @@
 			},
 			{
 				"backtrace" : 2,
-				"fragment" : "D:\\WindowsPrograms\\Libraries\\SDL2\\lib\\libSDL2main.a",
+				"fragment" : "C:\\Users\\bjarn\\libary\\SDL2\\lib\\libSDL2main.a",
 				"role" : "libraries"
 			},
 			{
 				"backtrace" : 2,
-				"fragment" : "D:\\WindowsPrograms\\Libraries\\SDL2\\lib\\libSDL2.dll.a",
+				"fragment" : "C:\\Users\\bjarn\\libary\\SDL2\\lib\\libSDL2.dll.a",
 				"role" : "libraries"
 			},
 			{

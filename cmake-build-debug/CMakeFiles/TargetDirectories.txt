@@ -1,0 +1,3 @@
+D:/projects/Cpp/SortingVisualizer/cmake-build-debug/CMakeFiles/SortingVisualizer.dir
+D:/projects/Cpp/SortingVisualizer/cmake-build-debug/CMakeFiles/edit_cache.dir
+D:/projects/Cpp/SortingVisualizer/cmake-build-debug/CMakeFiles/rebuild_cache.dir

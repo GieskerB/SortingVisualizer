@@ -34,3 +34,14 @@
 1422	2301	7221236301004712	CMakeFiles/SortingVisualizer.dir/src/sorting/Selectionsort.cpp.obj	50343b56efcfcbb0
 1437	2313	7221236301130024	CMakeFiles/SortingVisualizer.dir/src/sorting/Sort.cpp.obj	fd1c677c25952c98
 2314	2408	7221236302045040	SortingVisualizer.exe	12ae5f076c47dd1d
+4	743	7221237248277941	CMakeFiles/SortingVisualizer.dir/main.cpp.obj	f33246ff00c298dc
+744	833	7221237249140885	SortingVisualizer.exe	12ae5f076c47dd1d
+4	708	7221237364209060	CMakeFiles/SortingVisualizer.dir/main.cpp.obj	f33246ff00c298dc
+709	798	7221237365080961	SortingVisualizer.exe	12ae5f076c47dd1d
+5	748	7221237928049855	CMakeFiles/SortingVisualizer.dir/main.cpp.obj	f33246ff00c298dc
+3	92	7221238098215458	SortingVisualizer.exe	12ae5f076c47dd1d
+7	734	7221239930704859	CMakeFiles/SortingVisualizer.dir/src/sorting/Mergesort.cpp.obj	be8e9bcccb79bd4d
+3	783	7221239931186540	CMakeFiles/SortingVisualizer.dir/main.cpp.obj	f33246ff00c298dc
+783	883	7221239932153730	SortingVisualizer.exe	12ae5f076c47dd1d
+3	747	7221240017319488	CMakeFiles/SortingVisualizer.dir/main.cpp.obj	f33246ff00c298dc
+747	839	7221240018196733	SortingVisualizer.exe	12ae5f076c47dd1d

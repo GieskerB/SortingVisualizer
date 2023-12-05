@@ -10,8 +10,8 @@ class Mergesort: public Sort {
 private:
 
 	Uint8 divide(Uint16 start, Uint16 end, Uint8 currentSteps, int maxSteps);
-	Uint8 conquer(Uint16 start, Uint16 middel, Uint16 end, Uint8 currentSteps,
-			int maxSteps);
+	Uint8 conquer(Uint16 start, Uint16 middle, Uint16 end, Uint8 currentSteps,
+                  int maxSteps);
 
 protected:
 	void sort(int stepCount) override;

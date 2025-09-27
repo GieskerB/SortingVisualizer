@@ -1,46 +1,36 @@
 #ifndef INCLUDE_ARRAY_HPP_
 #define INCLUDE_ARRAY_HPP_
 
-#include "rectangle/BaseRectangle.hpp"
+#include <sys/types.h>
+
+#include "rectangle/Rect.hpp"
 
 class Array {
 
-//	friend class Sort;
-//	friend class Renderer;
+	Rect **array;
 
-private:
-
-	BaseRectangle **array;
-
-	void fillArray(Uint16 wWidth, Uint16 wHeight);
-
-//protected:
+	void fillArray(int wWidth, int wHeight);
 
 public:
 
 	const RectangleType TYPE;
-	const Uint16 SIZE;
+	const int SIZE;
 
-	Array(RectangleType type, Uint16 size, Uint16 wWidth, Uint16 wHeight);
+	Array(RectangleType type, int size, int wWidth, int wHeight);
 	~Array();
 
 	void shuffle();
 	void printArray();
-
 	bool isSorted();
 
-	bool compareBigger(Uint16 a, Uint16 b);
-	bool compareSmaller(Uint16 a, Uint16 b);
+	void swap(int a, int b);
 
-	bool compareBiggerToValue(Uint16 index, Uint16 value);
-	bool compareSmallerToValue(Uint16 index, Uint16 value);
+	int getValue(int index);
 
-	void swap(Uint16 a, Uint16 b);
-
-	Uint16 getValue(Uint16 index);
-
-	BaseRectangle* get(Uint16 index);
-	void set(BaseRectangle *rect, Uint16 index);
+	int& operator[](int);
+	
+	Rect* get(int index);
+	void set(Rect *rect, int index);
 
 };
 

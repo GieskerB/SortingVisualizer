@@ -1,8 +1,7 @@
 #ifndef INCLUDE_RECTANGLE_ALLRECTANGLES_HPP_
 #define INCLUDE_RECTANGLE_ALLRECTANGLES_HPP_
 
-#include "BaseRectangle.hpp"
-#include "InteractiveRectangle.hpp"
-#include "RainbowRectangle.hpp"
+#include "InteractRect.hpp"
+#include "RainbowRect.hpp"
 
 #endif /* INCLUDE_RECTANGLE_ALLRECTANGLES_HPP_ */

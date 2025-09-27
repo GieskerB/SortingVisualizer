@@ -1,21 +1,26 @@
 #ifndef INCLUDE_RAINBOWRECTANGLE_CPP_
 #define INCLUDE_RAINBOWRECTANGLE_CPP_
 
-#include <SDL_stdinc.h>
-#include <cmath>
 #include <iostream>
 
-#include "../../include/rectangle/RainbowRectangle.hpp"
+#include "../../include/rectangle/RainbowRect.hpp"
 
-Uint8 RainbowRectangle::initRed(Uint16 value, Uint16 maxValue) const {
-	const Uint16 hue = mapValue(value, 0, maxValue, 0, 360);
+constexpr int map_range(const int input, const int input_start, const int input_end, const int output_start, const int output_end) {
+	return static_cast<int>(static_cast<float>(output_start)
+		+ static_cast<float>(output_end - output_start)
+		/ static_cast<float>(input_end - input_start)
+		* static_cast<float>(input - input_start));
+}
+
+uint8_t RainbowRect::initRed(int value, int maxValue) const {
+	const int hue = map_range(value, 0, maxValue, 0, 360);
 	const float sixth = hue / 60.0;
 	const int sixthInt = sixth;
 
 	const float decimal = sixth - sixthInt;
 	const float inversDecimal = 1 - decimal;
 
-	Uint8 redValue;
+	uint8_t redValue;
 
 	switch (sixthInt) {
 	case 0:
@@ -39,15 +44,15 @@ Uint8 RainbowRectangle::initRed(Uint16 value, Uint16 maxValue) const {
 	return redValue;
 }
 
-Uint8 RainbowRectangle::initGreen(Uint16 value, Uint16 maxValue) const {
-	const Uint16 hue = mapValue(value, 0, maxValue, 0, 360);
+uint8_t RainbowRect::initGreen(int value, int maxValue) const {
+	const int hue = map_range(value, 0, maxValue, 0, 360);
 	const float sixth = hue / 60.0;
 	const int sixthInt = sixth;
 
 	const float decimal = sixth - sixthInt;
 	const float inversDecimal = 1 - decimal;
 
-	Uint8 greenValue;
+	uint8_t greenValue;
 
 	switch (sixthInt) {
 	case 1:
@@ -71,15 +76,15 @@ Uint8 RainbowRectangle::initGreen(Uint16 value, Uint16 maxValue) const {
 	return greenValue;
 }
 
-Uint8 RainbowRectangle::initBlue(Uint16 value, Uint16 maxValue) const {
-	const Uint16 hue = mapValue(value, 0, maxValue, 0, 360);
+uint8_t RainbowRect::initBlue(int value, int maxValue) const {
+	const int hue = map_range(value, 0, maxValue, 0, 360);
 	const float sixth = hue / 60.0;
 	const int sixthInt = sixth;
 
 	const float decimal = sixth - sixthInt;
 	const float inversDecimal = 1 - decimal;
 
-	Uint8 blueValue;
+	uint8_t blueValue;
 
 	switch (sixthInt) {
 	case 3:
@@ -103,30 +108,7 @@ Uint8 RainbowRectangle::initBlue(Uint16 value, Uint16 maxValue) const {
 	return blueValue;
 }
 
-RainbowRectangle::RainbowRectangle(Uint16 wWidth, Uint16 wHeight, Uint16 value,
-		Uint16 maxValue) :
-		BaseRectangle(wWidth, wHeight, value, maxValue,
-				initRed(value, maxValue), initGreen(value, maxValue),
-				initBlue(value, maxValue), 255) {
-}
-
-Uint8 RainbowRectangle::getRed() {
-	return this->red;
-}
-
-Uint8 RainbowRectangle::getGreen() {
-	return this->green;
-}
-
-Uint8 RainbowRectangle::getBlue() {
-	return this->blue;
-}
-
-Uint8 RainbowRectangle::getAlpha() {
-	return this->alpha;
-}
-
-void RainbowRectangle::resetState() {
+void RainbowRect::resetState() {
 }
 
 #endif /* INCLUDE_RAINBOWRECTANGLE_CPP_ */

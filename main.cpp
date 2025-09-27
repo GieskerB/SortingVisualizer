@@ -2,41 +2,44 @@
 #include <ctime>
 #include <iostream>
 
-#include <SDL.h>
+#include "include/Array.hpp"
+#include "include/rectangle/AllRectangles.hpp"
 
-#include "includes.inc"
+#include <SDL3/SDL.h>
+
+void render_array(SDL_Window * window, SDL_Renderer *renderer, const Array &array) {
+
+}
 
 int main(int argc, char *args[]) {
 
-	const Uint16 WINDOW_WIDTH = 1920;
-	const Uint16 WINDOW_HEIGHT = 1080;
-	const Uint16 ARRAY_SIZE = 2000;
-	const Uint8 DELAY = 0;
+	const int WINDOW_WIDTH = 1000;
+	const int WINDOW_HEIGHT = 700;
+	const int ARRAY_SIZE = 500;
+	const int DELAY = 5000;
 
 	// setup Random Seed
 	std::srand((unsigned) std::time(nullptr));
 
-	Array array = Array(RectangleType::INTERACTIVE,
-			(ARRAY_SIZE > WINDOW_WIDTH ? WINDOW_WIDTH : ARRAY_SIZE),
-			WINDOW_WIDTH, WINDOW_HEIGHT);
+	SDL_Init(SDL_INIT_VIDEO);
 
-	Renderer renderer = Renderer(&array, WINDOW_WIDTH, WINDOW_HEIGHT, DELAY);
+	SDL_Window * const window = SDL_CreateWindow("Sorting Visualizer", WINDOW_WIDTH, WINDOW_HEIGHT,SDL_WINDOW_RESIZABLE);
 
-	Sort *sorter = new Heapsort(&array, &renderer);
+	if (!window) {
+		SDL_Log("Could not create window: %s", SDL_GetError());
+		SDL_Quit();
+		return 1;
+	}
 
-	array.shuffle();
+	SDL_Renderer * const renderer = SDL_CreateRenderer(window, "Renderer");
 
-	renderer.renderArray();
+	// Array array{RAINBOW, ARRAY_SIZE, WINDOW_WIDTH, WINDOW_HEIGHT};
+	//
+	// render_array(window,renderer, array);
 
+	SDL_Delay(DELAY);
 
-//	sorter->sortMultipleSteps(8);
-//	sorter->sortFully();
-	sorter->sortStepByStep();
-
-	renderer.finish();
-	renderer.quit();
-
-	delete sorter;
+	SDL_Quit();
 
 	return 0;
 }

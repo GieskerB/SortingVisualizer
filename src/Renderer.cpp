@@ -4,17 +4,9 @@
 
 #include <iostream>
 
-Renderer::Renderer(Array *array, Uint16 wWidth, Uint16 wHeight, Uint8 delay) :
+Renderer::Renderer(Array *array, int wWidth, int wHeight, Uint8 delay) :
 		delay(delay) {
 	this->array = array;
-
-	SDL_Init(SDL_INIT_EVERYTHING);
-
-	this->window = SDL_CreateWindow("SDL2 Window",
-	SDL_WINDOWPOS_CENTERED,
-	SDL_WINDOWPOS_CENTERED, wWidth, wHeight, SDL_WINDOW_SHOWN);
-
-	this->renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
 
 }
 
@@ -22,7 +14,7 @@ Renderer::~Renderer() {
 
 }
 
-Uint8 Renderer::renderSwap(const Uint16 indexA, const Uint16 indexB,
+Uint8 Renderer::renderSwap(const int indexA, const int indexB,
 		Uint8 currentSteps, int maxSteps) {
 
 	this->array->swap(indexA, indexB);
@@ -35,12 +27,12 @@ Uint8 Renderer::renderSwap(const Uint16 indexA, const Uint16 indexB,
 
 void Renderer::renderArray() {
 	SDL_RenderClear(this->renderer);
-	for (Uint16 i = 0; i < this->array->SIZE; i++) {
-		BaseRectangle *rect = this->array->get(i);
+	for (int i = 0; i < this->array->SIZE; i++) {
+		Rect *rect = this->array->get(i);
 		SDL_SetRenderDrawColor(this->renderer, rect->getRed(), rect->getGreen(),
 				rect->getBlue(), rect->getAlpha());
 		rect->resetState();
-		SDL_RenderFillRect(this->renderer, rect->getRectPointer());
+		// SDL_RenderFillRect(this->renderer, rect->getRectPointer());
 	}
 	SDL_SetRenderDrawColor(this->renderer, 69, 69, 69, 255);
 
@@ -54,8 +46,8 @@ void Renderer::finish() {
 		return;
 	}
 	this->renderArray();
-	const Uint16 finishDelay = 2048 / this->array->SIZE;
-	for (Uint16 i = 0; i < this->array->SIZE; i++) {
+	const int finishDelay = 2048 / this->array->SIZE;
+	for (int i = 0; i < this->array->SIZE; i++) {
 		if (i > 0) {
 			InteractiveRectangle *prevRect =
 					dynamic_cast<InteractiveRectangle*>(this->array->get(i - 1));
@@ -65,7 +57,7 @@ void Renderer::finish() {
 			SDL_SetRenderDrawColor(this->renderer, prevRect->getRed(),
 					prevRect->getGreen(), prevRect->getBlue(),
 					prevRect->getAlpha());
-			SDL_RenderFillRect(this->renderer, prevRect->getRectPointer());
+			// SDL_RenderFillRect(this->renderer, prevRect->getRectPointer());
 		}
 
 		InteractiveRectangle *rect =
@@ -75,7 +67,7 @@ void Renderer::finish() {
 
 		SDL_SetRenderDrawColor(this->renderer, rect->getRed(), rect->getGreen(),
 				rect->getBlue(), rect->getAlpha());
-		SDL_RenderFillRect(this->renderer, rect->getRectPointer());
+		// SDL_RenderFillRect(this->renderer, rect->getRectPointer());
 
 		SDL_RenderPresent(this->renderer);
 

@@ -1,20 +1,25 @@
 #include "../../include/sorting/Bubblesort.hpp"
 
-Bubblesort::Bubblesort(Array *array, Renderer *renderer) :
-		Sort(array, renderer) {
-}
+Bubblesort::Bubblesort(Array *array) : Sort(array), glob_i(0), glob_j(0), swaps(0) {}
 
-void Bubblesort::sort(int stepCount) {
-	Uint16 currentSteps = 0;
-	Uint16 totalIterations = 0;
-	while (!this->array->isSorted()) {
-		for (int i = 0; i < this->array->SIZE - (totalIterations + 1); i++) {
-			if (this->array->compareBigger(i, i + 1)) {
-				currentSteps = this->renderer->renderSwap(i, i + 1,
-						currentSteps, stepCount);
+void Bubblesort::sort(const int limit) {
+
+	if (array->is_sorted()) return;
+
+	swaps = 0;
+	for (int i = glob_i; i < array->size(); ++i) {
+		for (int j = glob_j; j < array->size() - 1; ++j) {
+			if (array->value(j) > array->value(j + 1)) {
+				array->swap(j, j + 1);
+				++swaps;
+				if (swaps >= limit) {
+					glob_i = i;
+					glob_j = j;
+					return;
+				}
 			}
 		}
-		totalIterations++;
+		glob_j = 0;
 	}
 }
 

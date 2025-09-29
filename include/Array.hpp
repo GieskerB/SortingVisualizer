@@ -18,7 +18,7 @@ public:
 	~Array();
 
 	void shuffle();
-	[[nodiscard]] bool isSorted() const;
+	[[nodiscard]] bool is_sorted() const;
 	void swap(int,int);
 	void print() const;
 

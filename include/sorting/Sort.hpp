@@ -10,20 +10,12 @@ class Sort {
 protected:
 
 	Array *array;
-	Renderer *renderer;
 
 public:
 
-	Sort(Array *array, Renderer *renderer);
+	Sort(Array *array);
 	virtual ~Sort();
-
 	virtual void sort(int stepCount) = 0;
-
-	void sortFully();
-
-	void sortStepByStep();
-
-	void sortMultipleSteps(int numSteps);
 
 };
 

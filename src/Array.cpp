@@ -74,7 +74,7 @@ void Array::print() const {
 
 
 
-bool Array::isSorted() const {
+bool Array::is_sorted() const {
 	for (int i = 0; i < c_size - 1; i++) {
 		if (m_rects[i]->value() > m_rects[i + 1]->value()) {
 			return false;

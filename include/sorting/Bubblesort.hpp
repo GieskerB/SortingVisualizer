@@ -8,12 +8,13 @@
 
 class Bubblesort: public Sort {
 
-protected:
-	void sort(int stepCount) override;
+	int glob_i, glob_j;
+	int swaps;
 
 public:
 
-	Bubblesort(Array *array, Renderer *renderer);
+	Bubblesort(Array *array);
+	void sort(int) override;
 
 };
 

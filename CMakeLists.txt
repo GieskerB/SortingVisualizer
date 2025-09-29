@@ -10,7 +10,9 @@ add_executable(${PROJECT_NAME} main.cpp
         src/Array.cpp
         src/rectangle/InteractRect.cpp
         src/rectangle/RainbowRect.cpp
-        src/rectangle/Rect.cpp)
+        src/rectangle/Rect.cpp
+        src/sorting/Sort.cpp
+        src/sorting/Bubblesort.cpp)
 target_include_directories(${PROJECT_NAME} PUBLIC ${SDL3_INCLUDE_DIRS})
 
 target_link_libraries(${PROJECT_NAME} PRIVATE SDL3::SDL3)

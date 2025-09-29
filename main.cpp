@@ -9,9 +9,10 @@
 
 #include "include/Array.hpp"
 #include "include/rectangle/AllRectangles.hpp"
+#include "include/sorting/Bubblesort.hpp"
 
 struct AppState {
-	const unsigned int MAX_DELAY = 20;
+	const unsigned int MAX_DELAY = 5;
 
 	int window_width, window_height;
 
@@ -28,6 +29,7 @@ struct AppState {
 	}
 };
 
+Bubblesort* sorter;
 
 SDL_AppResult SDL_AppInit(void **appstate, int argc, char *argv[]) {
 	if (!SDL_Init(SDL_INIT_VIDEO)) return SDL_APP_FAILURE;
@@ -43,6 +45,8 @@ SDL_AppResult SDL_AppInit(void **appstate, int argc, char *argv[]) {
 	}
 
 	std::srand((unsigned) std::time(nullptr)); // setup Random Seed
+
+	sorter = new Bubblesort(&state->array);
 
 	*appstate = state;
 
@@ -68,6 +72,11 @@ SDL_AppResult SDL_AppEvent(void *appstate, SDL_Event *event) {
 			// Key: s
 			state->array.shuffle();
 		}
+		// std::cout << event->key.key<< std::endl;
+		if (event->key.key == 98) {
+			// Key: b
+			sorter->sort(1000);
+		}
 	}
 
 	return SDL_APP_CONTINUE;
@@ -82,6 +91,7 @@ SDL_AppResult SDL_AppIterate(void *appstate) {
 		state->array[i]->draw(state->renderer);
 	}
 	SDL_RenderPresent(state->renderer);
+	sorter->sort(5);
 
 	SDL_Delay(state->MAX_DELAY);
 	return SDL_APP_CONTINUE;
@@ -90,6 +100,7 @@ SDL_AppResult SDL_AppIterate(void *appstate) {
 void SDL_AppQuit(void *appstate, SDL_AppResult result) {
 	const auto *state = static_cast<AppState *>(appstate);
 	delete state;
+	delete sorter;
 	SDL_Quit();
 }
 

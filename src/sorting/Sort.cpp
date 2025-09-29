@@ -3,9 +3,7 @@
 
 #include "../../include/sorting/Sort.hpp"
 
-Sort::Sort(Array *array) {
-	this->array = array;
-}
+Sort::Sort(Array *arr) : swaps(0), array(arr) {}
 
 Sort::~Sort()=default;
 

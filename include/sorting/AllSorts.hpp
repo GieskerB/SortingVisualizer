@@ -4,12 +4,12 @@
 
 #include "Bogosort.hpp"
 #include "Bubblesort.hpp"
-#include "Heapsort.hpp"
+// #include "Heapsort.hpp"
 #include "Insertionsort.hpp"
-#include "Mergesort.hpp"
-#include "Quicksort.hpp"
-#include "Radixsort.hpp"
-#include "Selectionsort.hpp"
-#include "Stoogesort.hpp"
+// #include "Mergesort.hpp"
+// #include "Quicksort.hpp"
+// #include "Radixsort.hpp"
+// #include "Selectionsort.hpp"
+// #include "Stoogesort.hpp"
 
 #endif /* INCLUDE_SORTING_ALLSORTS_HPP_ */

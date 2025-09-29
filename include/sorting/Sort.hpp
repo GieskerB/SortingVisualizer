@@ -9,6 +9,7 @@
 class Sort {
 protected:
 
+	int swaps;
 	Array *array;
 
 public:

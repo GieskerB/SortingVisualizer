@@ -9,7 +9,6 @@
 class Bubblesort: public Sort {
 
 	int glob_i, glob_j;
-	int swaps;
 
 public:
 

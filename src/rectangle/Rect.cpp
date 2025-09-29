@@ -17,7 +17,7 @@ void Rect::value(const float value) {
 
 void Rect::draw(SDL_Renderer *renderer) const {
 	SDL_SetRenderDrawColor(renderer, r, g, b, 255);
-	SDL_RenderRect(renderer, this);
+	SDL_RenderFillRect(renderer, this);
 }
 
 

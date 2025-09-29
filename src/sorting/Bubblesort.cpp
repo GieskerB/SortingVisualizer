@@ -1,6 +1,6 @@
 #include "../../include/sorting/Bubblesort.hpp"
 
-Bubblesort::Bubblesort(Array *array) : Sort(array), glob_i(0), glob_j(0), swaps(0) {}
+Bubblesort::Bubblesort(Array *array) : Sort(array), glob_i(0), glob_j(0) {}
 
 void Bubblesort::sort(const int limit) {
 

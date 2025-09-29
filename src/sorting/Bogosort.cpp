@@ -1,13 +1,13 @@
 #include "../../include/sorting/Bogosort.hpp"
 
-Bogosort::Bogosort(Array *array, Renderer *renderer) :
-		Sort(array, renderer) {
+Bogosort::Bogosort(Array *array) :
+		Sort(array) {
 }
 
-void Bogosort::sort(int stepCount) {
-	while (!this->array->isSorted()) {
+void Bogosort::sort(const int limit) {
+	for (int i = 0; i < limit; ++i) {
+		if (array->is_sorted()) return;
 		this->array->shuffle();
-		this->renderer->renderArray();
 	}
 }
 

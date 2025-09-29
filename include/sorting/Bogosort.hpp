@@ -8,12 +8,11 @@
 
 class Bogosort: public Sort {
 
-protected:
-	void sort(int stepCount) override;
 
 public:
 
-	Bogosort(Array *array, Renderer *renderer);
+	Bogosort(Array *array);
+	void sort(int ) override;
 
 };
 

@@ -8,15 +8,15 @@
 
 class Insertionsort: public Sort {
 
-private:
-	bool binarySearch;
+	bool done_reverse;
+	int glob_i, glob_j;
 
 protected:
-	void sort(int stepCount) override;
+	void sort(int) override;
 
 public:
 
-	Insertionsort(Array *array, Renderer *renderer, bool binarySearch = false);
+	Insertionsort(Array *array);
 
 };
 

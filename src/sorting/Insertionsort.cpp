@@ -1,32 +1,32 @@
 #include "../../include/sorting/Insertionsort.hpp"
 
-Insertionsort::Insertionsort(Array *array, Renderer *renderer,
-		bool binarySearch) :
-		Sort(array, renderer), binarySearch(binarySearch) {
+Insertionsort::Insertionsort(Array *array) : Sort(array), done_reverse(true), glob_i(1), glob_j(glob_i) {}
 
-}
+void Insertionsort::sort(const int limit) {
 
-void Insertionsort::sort(int stepCount) {
-	Uint16 currentSteps = 0;
+	if (array->is_sorted()) return;
 
-	for (int i = 1; i < this->array->SIZE; i++) {
-//		if (this->binarySearch) {
-//			const int comapreTo = this->array->get(i)->getValue();
-//			int leftIndex = 0, rightIndex = i - 1;
-//			while (leftIndex <= rightIndex) {
-//
-//			}
-//		} else {
-			for (int j = i; j > 0; j--) {
-				if (this->array->compareSmaller(j, j - 1)) {
-					currentSteps = this->renderer->renderSwap(j, j - 1,
-							currentSteps, stepCount);
-
-				} else {
-					break;
+	swaps = 0;
+	for (int i = glob_i; i < array->size(); ++i) {
+		if (done_reverse) {
+			glob_j = i;
+			done_reverse = false;
+		}
+		int j;
+		for (j = glob_j; j > 0; --j) {
+			if (array->value(j) < array->value(j - 1)) {
+				array->swap(j, j - 1);
+				++swaps;
+				if (swaps >= limit) {
+					glob_i = i;
+					glob_j = j;
+					return;
 				}
+			} else {
+				done_reverse = true;
+				// break;
 			}
-//		}
+		}
+		if (glob_j == 0) done_reverse = true;
 	}
 }
-

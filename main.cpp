@@ -13,16 +13,18 @@
 struct AppState {
 	const unsigned int MAX_DELAY = 20;
 
-	int window_width = 1000;
-	int window_height = 700;
+	int window_width, window_height;
 
 	SDL_Window *window{nullptr};
 	SDL_Renderer *renderer{nullptr};
 	Array array;
 
-	constexpr AppState(int width, int height, int array_size) : array(
-		RAINBOW, array_size, static_cast<float>(width), static_cast<float>(height)
-	) {
+	AppState(const int width, const int height, const int array_size) : window_width(width), window_height(height),
+	                                                                    array(
+		                                                                    RAINBOW, array_size,
+		                                                                    static_cast<float>(width),
+		                                                                    static_cast<float>(height)
+	                                                                    ) {
 	}
 };
 
@@ -30,7 +32,7 @@ struct AppState {
 SDL_AppResult SDL_AppInit(void **appstate, int argc, char *argv[]) {
 	if (!SDL_Init(SDL_INIT_VIDEO)) return SDL_APP_FAILURE;
 
-	auto *state = new AppState(1000, 700, 2000);
+	auto *state = new AppState(1000, 700, 200);
 
 	SDL_CreateWindowAndRenderer("Sorting Visualizer", state->window_width, state->window_height,SDL_WINDOW_RESIZABLE,
 	                            &state->window,
@@ -40,29 +42,30 @@ SDL_AppResult SDL_AppInit(void **appstate, int argc, char *argv[]) {
 		return SDL_APP_FAILURE;
 	}
 
-	std::srand((unsigned) std::time(nullptr));	// setup Random Seed
+	std::srand((unsigned) std::time(nullptr)); // setup Random Seed
 
 	*appstate = state;
-	
+
 	return SDL_APP_CONTINUE;
 }
 
 SDL_AppResult SDL_AppEvent(void *appstate, SDL_Event *event) {
 	auto *state = static_cast<AppState *>(appstate);
-	
+
 	if (event->type == SDL_EVENT_QUIT) {
 		return SDL_APP_SUCCESS;
 	}
 	if (event->type == SDL_EVENT_WINDOW_RESIZED) {
 		const int new_width = event->window.data1;
 		const int new_height = event->window.data2;
-		state->array.window_resize(state->window_width,state->window_height,new_width,new_height);
+		state->array.window_resize(state->window_width, state->window_height, new_width, new_height);
 		state->window_width = new_width;
 		state->window_height = new_height;
 	}
 
 	if (event->type == SDL_EVENT_KEY_DOWN) {
-		if (event->key.key == 115) {// Key: s
+		if (event->key.key == 115) {
+			// Key: s
 			state->array.shuffle();
 		}
 	}

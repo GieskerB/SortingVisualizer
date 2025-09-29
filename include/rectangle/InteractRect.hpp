@@ -3,8 +3,7 @@
 
 #include "Rect.hpp"
 
-class InteractRect: public Rect {
-
+class InteractRect : public Rect {
 	static constexpr uint32_t DEFAULT_COLOR = (255 << 24) | (255 << 16) | (255 << 8) | 255;
 	static constexpr uint32_t COMPARED_COLOR = (0 << 24) | (255 << 16) | (0 << 8) | 255;
 	static constexpr uint32_t SWAPPED_COLOR = (255 << 24) | (0 << 16) | (0 << 8) | 255;
@@ -15,15 +14,15 @@ class InteractRect: public Rect {
 	void resetSwapped();
 
 public:
-
-	constexpr InteractRect(const int x, const int y,
-									 const int w, const int h) :
-		Rect(x, y, w, h), m_compared(false), m_swapped(false) {}
+	constexpr InteractRect(const float x, const float y, const float w, const float h) : Rect(x, y, w, h),
+		m_compared(false), m_swapped(false) {
+	}
 
 	void setCompared();
 	void setSwapped();
-
 	void resetState() override;
+	void init_color(float) override;
+
 };
 
 #endif /* INCLUDE_INTERACTIVERECTANGLE_HPP_ */

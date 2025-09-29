@@ -33,3 +33,7 @@ void InteractRect::resetState() {
 	resetChecked();
 	resetSwapped();
 }
+
+void InteractRect::init_color(const float) {
+	resetChecked();
+}

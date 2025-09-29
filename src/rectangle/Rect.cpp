@@ -10,8 +10,15 @@ float& Rect::value() {
 }
 
 void Rect::value(const float value) {
-	// TODO reset y
+	const float delta = h - value;
+	y -= delta;
 	h = value;
 }
+
+void Rect::draw(SDL_Renderer *renderer) const {
+	SDL_SetRenderDrawColor(renderer, r, g, b, 255);
+	SDL_RenderRect(renderer, this);
+}
+
 
 #endif /* INCLUDE_RECTANGLE_CPP_ */

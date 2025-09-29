@@ -14,7 +14,15 @@ Array::Array(const RectangleType type, const int arr_size, const int window_widt
 	const int rect_width = window_width / c_size;
 	for (int i = 0; i < c_size; i++) {
 		const int rect_height = window_height / c_size * (i + 1);
-		m_rects[i] = new RainbowRect(i* rect_width, window_height - rect_height, rect_width, rect_height);
+		switch (type) {
+			case RAINBOW:
+				m_rects[i] = new RainbowRect(i* rect_width, window_height - rect_height, rect_width, rect_height);
+				break;
+			case INTERACTIVE:
+				m_rects[i] = new InteractRect(i* rect_width, window_height - rect_height, rect_width, rect_height);
+				break;
+		}
+		m_rects[i]->init_color(window_height);
 	}
 }
 

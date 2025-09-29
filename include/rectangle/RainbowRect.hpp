@@ -3,20 +3,14 @@
 
 #include "Rect.hpp"
 
-class RainbowRect: public Rect {
+struct RainbowRect: Rect {
 
-
-	uint8_t initRed(int value, int maxValue) const;
-	uint8_t initGreen(int value, int maxValue) const;
-	uint8_t initBlue(int value, int maxValue) const;
-
-public:
-
-	constexpr RainbowRect(const int x, const int y, const int w,const int h) :
+	constexpr RainbowRect(const float x, const float y, const float w,const float h) :
 		Rect(x, y, w, h) {
 	}
 
 	void resetState() override;
+	void init_color(float) override;
 };
 
 #endif /* INCLUDE_RAINBOWRECTANGLE_HPP_ */

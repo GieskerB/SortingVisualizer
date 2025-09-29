@@ -48,10 +48,10 @@ SDL_AppResult SDL_AppEvent(void *appstate, SDL_Event *event) {
 
 SDL_AppResult SDL_AppIterate(void *appstate) {
 	SDL_RenderClear(renderer);
+	SDL_SetRenderDrawColor(renderer, 69, 69, 69, 255);
+	SDL_RenderFillRect(renderer, NULL);
 	for (int i = 0; i < array->size(); ++i) {
-		const Rect *rect = (*array)[i];
-		SDL_SetRenderDrawColor(renderer, rect->r, rect->g, rect->b, 255);
-		SDL_RenderRect(renderer, rect);
+		(*array)[i]->draw(renderer);
 	}
 	SDL_RenderPresent(renderer);
 

@@ -25,7 +25,9 @@ struct Rect : SDL_FRect {
 	[[nodiscard]] float& value();
 	void value(float);
 
+	void draw(SDL_Renderer* renderer) const;
 	virtual void resetState() = 0;
+	virtual void init_color(float) = 0;
 
 };
 

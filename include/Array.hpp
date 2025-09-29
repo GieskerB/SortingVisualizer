@@ -14,14 +14,15 @@ class Array {
 public:
 
 
-	Array(RectangleType, int, int, int);
+	Array(RectangleType, int, float, float);
 	~Array();
 
 	void shuffle();
-	void printArray() const;
 	[[nodiscard]] bool isSorted() const;
+	void swap(int,int);
+	void print() const;
 
-	void swap(int a, int b);
+	void window_resize(float,float,float,float);
 
 	[[nodiscard]] int value(int index) const;
 	void value(int index, int value) const;

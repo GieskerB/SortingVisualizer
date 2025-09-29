@@ -3,14 +3,9 @@
 
 #include "../../include/rectangle/RainbowRect.hpp"
 
+#include <iostream>
+#include <ostream>
 #include <stdexcept>
-
-// constexpr int map_range(const int input, const int input_start, const int input_end, const int output_start, const int output_end) {
-// 	return static_cast<int>(static_cast<float>(output_start)
-// 		+ static_cast<float>(output_end - output_start)
-// 		/ static_cast<float>(input_end - input_start)
-// 		* static_cast<float>(input - input_start));
-// }
 
 void RainbowRect::init_color(const float max_val) {
 	const float hue = h / max_val * 360;
@@ -22,6 +17,7 @@ void RainbowRect::init_color(const float max_val) {
 
 	switch (sixth_int) {
 		case 0:
+		case 6:
 			r = 255;
 			g = static_cast<uint8_t>(decimal * 255);
 			b = 0;

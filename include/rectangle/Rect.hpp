@@ -7,38 +7,23 @@ enum RectangleType {
 	INTERACTIVE, RAINBOW
 };
 
-class Rect {
+struct Rect : SDL_FRect {
 
-	SDL_Rect m_rect;
+	uint8_t r, g, b;
 
-protected:
-
-	uint8_t m_red, m_green, m_blue;
-
-	constexpr Rect(const int x, const int y, const int w, const int h,
-					 const uint8_t r, const uint8_t g, const uint8_t b) : m_rect(x, y, w, h),
-																		  m_red(r), m_green(g), m_blue(b) {
+	constexpr Rect(const float x, const float y, const float w, const float h,
+					 const uint8_t r, const uint8_t g, const uint8_t b) : SDL_FRect(x, y, w, h),
+																		  r(r), g(g), b(b) {
 	}
-	constexpr Rect(const int x, const int y, const int w, const int h) : m_rect(x, y, w, h),
-	m_red(69), m_green(69), m_blue(69) {
+	constexpr Rect(const float x, const float y, const float w, const float h) : SDL_FRect(x, y, w, h),
+	r(69), g(69), b(69) {
 	}
 
-public:
 
 	virtual ~Rect();
 
-	[[nodiscard]] SDL_Rect& rect() ;
-	void rect(const SDL_Rect &);
-
-	[[nodiscard]] int& value();
-	void value(int);
-
-	uint8_t& red();
-	void red(uint8_t);
-	uint8_t& green();
-	void green(uint8_t);
-	uint8_t& blue();
-	void blue(uint8_t);
+	[[nodiscard]] float& value();
+	void value(float);
 
 	virtual void resetState() = 0;
 

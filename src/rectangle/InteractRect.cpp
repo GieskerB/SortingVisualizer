@@ -10,25 +10,25 @@ void InteractRect::resetSwapped() {
 
 void InteractRect::setCompared() {
 	if (!m_swapped) {
-		red((COMPARED_COLOR & 255 << 24) >> 24);
-		green((COMPARED_COLOR & 255 << 16) >> 16);
-		blue((COMPARED_COLOR & 255 << 8) >> 8);
+		r = (COMPARED_COLOR & 255 << 24) >> 24;
+		g = (COMPARED_COLOR & 255 << 16) >> 16;
+		b = (COMPARED_COLOR & 255 << 8) >> 8;
 	}
 	m_compared = true;
 }
 
 void InteractRect::setSwapped() {
-	red((SWAPPED_COLOR & 255 << 24) >> 24);
-	green((SWAPPED_COLOR & 255 << 16) >> 16);
-	blue((SWAPPED_COLOR & 255 << 8) >> 8);
+	r = (SWAPPED_COLOR & 255 << 24) >> 24;
+	g = (SWAPPED_COLOR & 255 << 16) >> 16;
+	b = (SWAPPED_COLOR & 255 << 8) >> 8;
 	m_swapped = true;
 }
 
 void InteractRect::resetState() {
 	if (m_swapped || m_compared) {
-		red((DEFAULT_COLOR & 255 << 24) >> 24);
-		green((DEFAULT_COLOR & 255 << 16) >> 16);
-		blue((DEFAULT_COLOR & 255 << 8) >> 8);
+		r = (DEFAULT_COLOR & 255 << 24) >> 24;
+		g = (DEFAULT_COLOR & 255 << 16) >> 16;
+		b = (DEFAULT_COLOR & 255 << 8) >> 8;
 	}
 	resetChecked();
 	resetSwapped();

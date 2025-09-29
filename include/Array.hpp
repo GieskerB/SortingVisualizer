@@ -1,36 +1,34 @@
 #ifndef INCLUDE_ARRAY_HPP_
 #define INCLUDE_ARRAY_HPP_
 
-#include <sys/types.h>
+#include <vector>
 
 #include "rectangle/Rect.hpp"
 
 class Array {
 
-	Rect **array;
-
-	void fillArray(int wWidth, int wHeight);
+	std::vector<Rect*> m_rects{};
+	const RectangleType c_type;
+	const int c_size;
 
 public:
 
-	const RectangleType TYPE;
-	const int SIZE;
 
-	Array(RectangleType type, int size, int wWidth, int wHeight);
+	Array(RectangleType, int, int, int);
 	~Array();
 
 	void shuffle();
-	void printArray();
-	bool isSorted();
+	void printArray() const;
+	[[nodiscard]] bool isSorted() const;
 
 	void swap(int a, int b);
 
-	int getValue(int index);
+	[[nodiscard]] int value(int index) const;
+	void value(int index, int value) const;
 
-	int& operator[](int);
-	
-	Rect* get(int index);
-	void set(Rect *rect, int index);
+	[[nodiscard]] int size() const;
+
+	Rect*& operator[](int);
 
 };
 

@@ -7,56 +7,42 @@
 #include "../include/rectangle/AllRectangles.hpp"
 #include "../include/Array.hpp"
 
-void Array::fillArray(int wWidth, int wHeight) {
-	array = new Rect*[this->SIZE];
-	for (int i = 0; i < this->SIZE; i++) {
-		switch (this->TYPE) {
-		case INTERACTIVE:
-			array[i] = new InteractRect(wWidth, wHeight, i, this->SIZE);
-			break;
-		case RAINBOW:
-			array[i] = new RainbowRect(wWidth, wHeight, i, this->SIZE);
-			break;
-		default:
-			array[i] = nullptr;
-		}
+Array::Array(const RectangleType type, const int arr_size, const int window_width, const int window_height) :
+		c_type(type), c_size(arr_size) {
 
+	m_rects.resize(c_size);
+	const int rect_width = window_width / c_size;
+	for (int i = 0; i < c_size; i++) {
+		const int rect_height = window_height / c_size * (i + 1);
+		m_rects[i] = new RainbowRect(i* rect_width, window_height - rect_height, rect_width, rect_height);
 	}
-}
-
-Array::Array(RectangleType type, int size, int wWidth, int wHeight) :
-		TYPE(type), SIZE(size) {
-
-	this->fillArray(wWidth, wHeight);
-
 }
 
 Array::~Array() {
-	for (int i = 0; i < this->SIZE; i++) {
-		delete this->array[i];
+	for (int i = 0; i < c_size; i++) {
+		delete m_rects[i];
 	}
-	delete this->array;
 }
 
 // Shuffles the array
 void Array::shuffle() {
-	for (int i = 0; i < this->SIZE; i++) {
-		int randIndex = std::rand() % (this->SIZE - i) + i;
+	for (int i = 0; i < c_size; i++) {
+		const int randIndex = std::rand() % (c_size - i) + i;
 		swap(i, randIndex);
 	}
 }
 
 // prints the array
-void Array::printArray() {
-	for (int i = 0; i < this->SIZE; i++) {
-		std::cout << array[i]->value() << " ";
+void Array::printArray() const {
+	for (int i = 0; i < c_size; i++) {
+		std::cout << m_rects[i]->value() << " ";
 	}
 	std::cout << std::endl;
 }
 
-bool Array::isSorted() {
-	for (int i = 0; i < this->SIZE - 1; i++) {
-		if (this->array[i]->value() > this->array[i + 1]->value()) {
+bool Array::isSorted() const {
+	for (int i = 0; i < c_size - 1; i++) {
+		if (m_rects[i]->value() > m_rects[i + 1]->value()) {
 			return false;
 		}
 	}
@@ -65,48 +51,41 @@ bool Array::isSorted() {
 
 // Swaps Values in the array at index 'a' and 'b'
 void Array::swap(int a, int b) {
-	SDL_Rect rectA = array[a]->rect();
-	SDL_Rect rectB = array[b]->rect();
+	Rect* rectA = m_rects[a];
+	Rect* rectB = m_rects[b];
 
-	int tmp_X = rectA.x;
-	rectA.x = rectB.x;
-	rectB.x = tmp_X;
+	const float tmp_X = rectA->x;
+	rectA->x = rectB->x;
+	rectB->x = tmp_X;
 
-	array[a]->rect(rectA);
-	array[b]->rect(rectB);
+	m_rects[a] = rectA;
+	m_rects[b] = rectB;
 
-	Rect *tmp = array[a];
-	array[a] = array[b];
-	array[b] = tmp;
-
-	if (this->TYPE == RectangleType::INTERACTIVE) {
-		((InteractRect*) array[a])->setSwapped();
-		((InteractRect*) array[b])->setSwapped();
-	}
+	Rect *tmp = m_rects[a];
+	m_rects[a] = m_rects[b];
+	m_rects[b] = tmp;
 
 }
 
-int Array::getValue(int index) {
-	if (index < 0 || index >= SIZE) {
+int Array::value(const int index) const {
+	if (index < 0 || index >= c_size) {
 		return -1;
 	}
-	return this->array[index]->value();
+	return m_rects[index]->value();
 }
-
-int& Array::operator[](int index) {
-	return this->array[index]->value();
-}
-
-Rect* Array::get(int index) {
-	if (index < 0 || index >= SIZE) {
-		return nullptr;
+void Array::value(const int index, const int value) const {
+	if (index < 0 || index >= c_size) {
+		throw std::invalid_argument("index out of range");
 	}
-	return this->array[index];
+	return m_rects[index]->value(value);
 }
 
-void Array::set(Rect *rect, int index) {
-	this->array[index] = rect;
-	this->array[index]->value(index);
+int Array::size() const {
+	return c_size;
+}
+
+Rect*& Array::operator[](const int index) {
+	return m_rects[index];
 }
 
 #endif /* INCLUDE_ARRAY_CPP_ */

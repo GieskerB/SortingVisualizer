@@ -14,6 +14,7 @@ public:
 
 	Bubblesort(Array *array);
 	void sort(int) override;
+	void reset() override;
 
 };
 

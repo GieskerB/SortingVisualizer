@@ -1,23 +1,38 @@
 #include "../../include/sorting/Selectionsort.hpp"
 
-Selectionsort::Selectionsort(Array *array, Renderer *renderer) :
-		Sort(array, renderer) {
+#include <limits>
+
+Selectionsort::Selectionsort(Array *array) :
+		Sort(array), glob_i(0),glob_j(0) {
 }
 
-void Selectionsort::sort(int stepCount) {
-	Uint16 currentSteps = 0;
+void Selectionsort::sort(int limit) {
 
-	for (int i = 0; i < this->array->SIZE - 1; i++) {
-		Uint16 minValue = 65535;
-		Uint16 minIndex;
-		for (int j = i; j < this->array->SIZE; j++) {
-			if (this->array->compareSmallerToValue(j, minValue)) {
-				minValue = this->array->getValue(j);
-				minIndex = j;
+	if (array->is_sorted()) return;
+
+	swaps = 0;
+	for (int i = glob_i; i < array->size() - 1; ++i) {
+		int min_val = std::numeric_limits<int>::max();
+		int min_index = 0;
+		glob_j = i;
+		int j = glob_j;
+		for (; j < array->size(); ++j) {
+			if (array->value(j) < min_val) {
+				min_val = array->value(j);
+				min_index = j;
 			}
 		}
-		currentSteps = this->renderer->renderSwap(i, minIndex, currentSteps,
-				stepCount);
+		array->swap(i,min_index);
+		++swaps;
+		if (swaps >= limit) {
+			glob_i = i;
+			glob_j = j;
+			return;
+		}
 	}
+}
+
+void Selectionsort::reset() {
+	glob_i = glob_j = 0;
 }
 

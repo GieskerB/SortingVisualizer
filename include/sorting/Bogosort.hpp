@@ -8,11 +8,11 @@
 
 class Bogosort: public Sort {
 
-
 public:
 
 	Bogosort(Array *array);
 	void sort(int ) override;
+	void reset() override;
 
 };
 

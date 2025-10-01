@@ -11,12 +11,11 @@ class Insertionsort: public Sort {
 	bool done_reverse;
 	int glob_i, glob_j;
 
-protected:
-	void sort(int) override;
-
 public:
 
 	Insertionsort(Array *array);
+	void sort(int) override;
+	void reset() override;
 
 };
 

@@ -11,3 +11,4 @@ void Bogosort::sort(const int limit) {
 	}
 }
 
+void Bogosort::reset() {}

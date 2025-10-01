@@ -14,9 +14,10 @@ protected:
 
 public:
 
-	Sort(Array *array);
+	Sort(Array *);
 	virtual ~Sort();
 	virtual void sort(int stepCount) = 0;
+	virtual void reset() = 0;
 
 };
 

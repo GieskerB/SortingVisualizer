@@ -23,3 +23,7 @@ void Bubblesort::sort(const int limit) {
 	}
 }
 
+void Bubblesort::reset() {
+	glob_i = glob_j = 0;
+}
+

@@ -8,12 +8,13 @@
 
 class Selectionsort: public Sort {
 
-protected:
-	void sort(int stepCount) override;
+	int glob_i, glob_j;
 
 public:
 
-	Selectionsort(Array *array, Renderer *renderer);
+	Selectionsort(Array *array);
+	void sort(int) override;
+	void reset() override;
 
 };
 

@@ -1,6 +1,6 @@
 #include "../../include/sorting/Insertionsort.hpp"
 
-Insertionsort::Insertionsort(Array *array) : Sort(array), done_reverse(true), glob_i(1), glob_j(glob_i) {}
+Insertionsort::Insertionsort(Array *array) : Sort(array), done_reverse(true), glob_i(1), glob_j(1) {}
 
 void Insertionsort::sort(const int limit) {
 
@@ -29,4 +29,9 @@ void Insertionsort::sort(const int limit) {
 		}
 		if (glob_j == 0) done_reverse = true;
 	}
+}
+
+void Insertionsort::reset() {
+	done_reverse = true;
+	glob_i = glob_j = 1;
 }

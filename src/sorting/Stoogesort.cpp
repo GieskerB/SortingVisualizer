@@ -2,38 +2,59 @@
 
 #include <cmath>
 
-Stoogesort::Stoogesort(Array *array, Renderer *renderer) :
-		Sort(array, renderer) {
-}
+Stoogesort::Stoogesort(Array *array) : Sort(array) {}
 
-int Stoogesort::split(Uint16 begin, Uint16 end, Uint8 currentSteps,
-		const int stepMax) {
+void Stoogesort::split(const int begin, const int end, const int limit, RecusiveTree<3>* node) {
 	if (begin >= end) {
-		return currentSteps;
+		node->visited = true;
+		return;
 	}
-	currentSteps++;
-	if (end - begin == 1) {
-		if (this->array->compareBigger(begin, end)) {
-			currentSteps = this->renderer->renderSwap(begin, end, currentSteps, stepMax);
-//			this->array->swap(begin, end);
+
+	if (const int delta = end - begin; delta == 1) {
+		if (array->value(begin) > array->value(end)) {
+			array->swap(begin, end);
+			++swaps;
+			if (swaps >= limit) {
+				node->visited = true;
+				throw swaps;
+				// Store current state.
+				// Da a "super" return -> throw?
+			}
 		}
 	} else {
-		int delta = end - begin + 1;
-		int oneThirds = (int) std::floor(1.0 * delta / 3.0);
-		int twoThirds = (int) std::ceil(2.0 * delta / 3.0);
+		const int third = std::ceil(delta / 3.0);
 
-		currentSteps = this->split(begin, begin - 1 + twoThirds, currentSteps,
-				stepMax);
-		currentSteps = this->split(begin + oneThirds, end, currentSteps,
-				stepMax);
-		currentSteps = this->split(begin, begin - 1 + twoThirds, currentSteps,
-				stepMax);
+		if (node->children[0] == nullptr) {
+			node->children[0] = new RecusiveTree<3>;
+			node->children[1] = new RecusiveTree<3>;
+			node->children[2] = new RecusiveTree<3>;
+		}
+
+		if (!node->children[0]->visited)
+		split(begin, end - third, limit, node->children[0]);
+		if (!node->children[1]->visited)
+		split(begin + third, end, limit, node->children[0]);
+		if (!node->children[2]->visited)
+		split(begin, end - third,  limit, node->children[0]);
 	}
-//	this->renderer->renderArray();
-	return currentSteps;
+	node->visited = true;
 }
 
-void Stoogesort::sort(int stepCount) {
-	this->split(0, this->array->SIZE - 1, 0, stepCount);
+void Stoogesort::sort(const int limit) {
+	if (array->is_sorted()) return;
+	std::cout <<"NOT SORTED!\n";
+	swaps = 0;
+	try {
+		split(0, array->size() - 1, limit, &nodes);
+	} catch (int swaps) {
+		std::cout << swaps << "\n";
+	}
+}
+
+void Stoogesort::reset() {
+	for (int i = 0; i< 3; ++i) {
+		delete nodes.children[i];
+		nodes.children[i] = nullptr;
+	}
 }
 

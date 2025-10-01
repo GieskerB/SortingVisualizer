@@ -10,6 +10,6 @@
 // #include "Quicksort.hpp"
 // #include "Radixsort.hpp"
 #include "Selectionsort.hpp"
-// #include "Stoogesort.hpp"
+#include "Stoogesort.hpp"
 
 #endif /* INCLUDE_SORTING_ALLSORTS_HPP_ */

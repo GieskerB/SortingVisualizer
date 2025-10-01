@@ -34,7 +34,7 @@ Sort* sorter;
 SDL_AppResult SDL_AppInit(void **appstate, int argc, char *argv[]) {
 	if (!SDL_Init(SDL_INIT_VIDEO)) return SDL_APP_FAILURE;
 
-	auto *state = new AppState(1000, 700, 2500);
+	auto *state = new AppState(1000, 700, 250);
 
 	SDL_CreateWindowAndRenderer("Sorting Visualizer", state->window_width, state->window_height,SDL_WINDOW_RESIZABLE,
 	                            &state->window,
@@ -46,7 +46,7 @@ SDL_AppResult SDL_AppInit(void **appstate, int argc, char *argv[]) {
 
 	std::srand((unsigned) std::time(nullptr)); // setup Random Seed
 
-	sorter = new Bogosort(&state->array);
+	sorter = new Stoogesort(&state->array);
 
 	*appstate = state;
 
@@ -87,7 +87,7 @@ SDL_AppResult SDL_AppIterate(void *appstate) {
 	auto *state = static_cast<AppState *>(appstate);
 	SDL_RenderClear(state->renderer);
 	SDL_SetRenderDrawColor(state->renderer, 69, 69, 69, 255);
-	SDL_RenderFillRect(state->renderer, NULL);
+	SDL_RenderFillRect(state->renderer, nullptr);
 	for (int i = 0; i < state->array.size(); ++i) {
 		state->array[i]->draw(state->renderer);
 	}

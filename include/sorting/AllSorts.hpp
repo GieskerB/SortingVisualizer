@@ -4,7 +4,7 @@
 
 #include "Bogosort.hpp"
 #include "Bubblesort.hpp"
-// #include "Heapsort.hpp"
+#include "Heapsort.hpp"
 #include "Insertionsort.hpp"
 // #include "Mergesort.hpp"
 // #include "Quicksort.hpp"

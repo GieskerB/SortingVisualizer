@@ -1,83 +1,123 @@
 #include "../../include/sorting/Heapsort.hpp"
 
-Heapsort::Heapsort(Array *array, Renderer *renderer) :
-		Sort(array, renderer) {
-	this->heapSize = this->array->SIZE;
-}
+// TODO: StackMemory::visited currently unused
 
-Uint16 Heapsort::leftChildIndex(Uint16 parenIndex) {
-	return 2 * parenIndex + 1;
-}
+Heapsort::Heapsort(Array *array) : Sort(array), full_sift(true), heap_size(array->size()) {}
 
-Uint16 Heapsort::rightChildIndex(Uint16 parenIndex) {
-	return 2 * parenIndex + 2;
-}
+int Heapsort::left_child(const int parent) { return 2 * parent + 1; }
 
-Uint16 Heapsort::heapify(const Uint16 index, Uint16 currentSteps,
-		const int maxSteps) {
-	if (this->leftChildIndex(index) < this->heapSize) { // hasLeft
-		currentSteps = this->heapify(2 * index + 1, currentSteps, maxSteps);
+int Heapsort::right_child(const int parent) { return 2 * parent + 2; }
+
+bool Heapsort::has_left(const int index) const { return left_child(index) < heap_size; }
+
+bool Heapsort::has_right(const int index) const { return right_child(index) < heap_size; }
+
+void Heapsort::heapify(const int index, const int limit, StackMemory<3> *node) {
+	if (node->children[0] == nullptr) {
+		node->children[0] = new StackMemory<3>;
+		node->children[1] = new StackMemory<3>;
+		node->children[2] = new StackMemory<3>;
 	}
-	if (this->rightChildIndex(index) < this->heapSize) { // hasRight
-		currentSteps = this->heapify(2 * index + 2, currentSteps, maxSteps);
-	}
+	if (has_left(index) and !node->children[0]->visited) heapify(left_child(index), limit, node->children[0]);
+	if (has_right(index) and !node->children[1]->visited) heapify(right_child(index), limit, node->children[1]);
 
-	currentSteps = this->siftDown(index, currentSteps, maxSteps);
-	return currentSteps;
+	if (!node->children[0]->visited) sift_down(index, limit, node->children[2]);
+	node->visited = false;
 }
 
-Uint16 Heapsort::siftDown(const Uint16 index, Uint16 currentSteps,
-		const int maxSteps) {
+void Heapsort::sift_down(const int index, const int limit, StackMemory<3> *node) {
 	// Break condition: "Node" is a leaf
-	if (this->leftChildIndex(index) >= this->heapSize) { // If has Right must have Left
-		return currentSteps;
+	if (left_child(index) >= heap_size) return;
+
+	if (node->children[0] == nullptr) {
+		node->children[0] = new StackMemory<3>;
+		node->children[1] = new StackMemory<3>;
+		node->children[2] = new StackMemory<3>;
 	}
 
-	const Uint16 lci = this->leftChildIndex(index);
-	const Uint16 rci = this->rightChildIndex(index);
+	const int lci = left_child(index);
+	const int rci = right_child(index);
 
-	if (rci < this->heapSize) {
+	if (rci < heap_size) {
 		// Has left and right child
-		if (this->array->compareBigger(lci, rci)) {
+		if (array->value(lci) > array->value(rci)) {
 			// Left Child bigger then right
-			if (this->array->compareBigger(lci, index)) {
+			if (array->value(lci) > array->value(index)) {
 				// left child bigger then parent
-				currentSteps = this->renderer->renderSwap(lci,index, currentSteps, maxSteps);
+				array->swap(lci, index);
+				++swaps;
+				if (swaps >= limit) {
+					throw swaps;
+				}
 			}
 		} else {
 			// Right Child bigger then left
-			if (this->array->compareBigger(rci, index)) {
+			if (array->value(rci) > array->value(index)) {
 				// right child bigger then parent
-				currentSteps = this->renderer->renderSwap(rci,index, currentSteps, maxSteps);
+				array->swap(rci, index);
+				++swaps;
+				if (swaps >= limit) {
+					throw swaps;
+				}
 			}
 		}
 		// Recursive call for left and right child
-		currentSteps = this->siftDown(lci, currentSteps, maxSteps);
-		currentSteps = this->siftDown(rci, currentSteps, maxSteps);
+		if (!node->children[0]->visited) sift_down(lci, limit, node->children[0]);
+		if (!node->children[1]->visited) sift_down(rci, limit, node->children[1]);
 	} else {
 		// Only has a left Child
-		if (this->array->compareBigger(lci, index)) {
+		if (array->value(lci) > array->value(index)) {
 			// left child bigger then parent
-			currentSteps = this->renderer->renderSwap(lci,index, currentSteps, maxSteps);
+			array->swap(lci, index);
+			++swaps;
+			if (swaps >= limit) {
+				throw swaps;
+			}
 		}
 		// Recursive call only for left child
-		currentSteps = this->siftDown(lci, currentSteps, maxSteps);
+		if (!node->children[2]->visited) sift_down(lci, limit, node->children[2]);
 	}
-	return currentSteps;
+	node->visited = false;
 }
 
-void Heapsort::sort(int stepCount) {
-	this->renderer->renderArray();
-	int currentSteps = this->heapify(0, 0, stepCount);
+void Heapsort::sort(int limit) {
+	if (array->is_sorted()) return;
+	swaps = 0;
 
-	while (this->heapSize > 0) {
-		this->array->swap(0, this->heapSize - 1);
-		this->heapSize--;
-		currentSteps = this->siftDown(0, currentSteps, stepCount);
-		if (stepCount > 0 && currentSteps >= stepCount) {
-			currentSteps = 0;
-			this->renderer->renderArray();
+	try {
+		if (!heapify_nodes.visited) heapify(0, limit, &heapify_nodes);
+	} catch (int swaps) {
+		return;
+	}
+
+	while (heap_size > 0) {
+		if (full_sift) {
+			full_sift = false;
+			array->swap(0, heap_size - 1);
+			heap_size--;
+			++swaps;
+			if (swaps >= limit) {
+				return;
+			}
 		}
+		try {
+			sift_down(0, limit, &sift_down_nodes);
+		} catch (int swaps) {
+			return;
+		}
+		full_sift = true;
 	}
 }
+
+void Heapsort::reset() {
+	heap_size = array->size();
+	full_sift = true;
+	for (int i = 0; i < 2; ++i) {
+		delete heapify_nodes.children[i];
+		delete sift_down_nodes.children[i];
+		heapify_nodes.children[i] = nullptr;
+		sift_down_nodes.children[i] = nullptr;
+	}
+}
+
 

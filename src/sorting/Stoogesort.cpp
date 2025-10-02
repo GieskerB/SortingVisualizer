@@ -4,7 +4,7 @@
 
 Stoogesort::Stoogesort(Array *array) : Sort(array) {}
 
-void Stoogesort::split(const int begin, const int end, const int limit, RecusiveTree<3>* node) {
+void Stoogesort::split(const int begin, const int end, const int limit, StackMemory<3>* node) {
 	if (begin >= end) {
 		node->visited = true;
 		return;
@@ -25,29 +25,27 @@ void Stoogesort::split(const int begin, const int end, const int limit, Recusive
 		const int third = std::ceil(delta / 3.0);
 
 		if (node->children[0] == nullptr) {
-			node->children[0] = new RecusiveTree<3>;
-			node->children[1] = new RecusiveTree<3>;
-			node->children[2] = new RecusiveTree<3>;
+			node->children[0] = new StackMemory<3>;
+			node->children[1] = new StackMemory<3>;
+			node->children[2] = new StackMemory<3>;
 		}
 
 		if (!node->children[0]->visited)
 		split(begin, end - third, limit, node->children[0]);
 		if (!node->children[1]->visited)
-		split(begin + third, end, limit, node->children[0]);
+		split(begin + third, end, limit, node->children[1]);
 		if (!node->children[2]->visited)
-		split(begin, end - third,  limit, node->children[0]);
+		split(begin, end - third,  limit, node->children[2]);
 	}
 	node->visited = true;
 }
 
 void Stoogesort::sort(const int limit) {
 	if (array->is_sorted()) return;
-	std::cout <<"NOT SORTED!\n";
 	swaps = 0;
 	try {
 		split(0, array->size() - 1, limit, &nodes);
-	} catch (int swaps) {
-		std::cout << swaps << "\n";
+	} catch (int) {
 	}
 }
 

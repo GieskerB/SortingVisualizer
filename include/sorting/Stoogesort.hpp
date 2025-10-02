@@ -3,25 +3,14 @@
 #define INCLUDE_SORTING_STOOGESORT_HPP_
 
 #include "Sort.hpp"
-
 #include "../Array.hpp"
-#include <array>
-
-template <int N>
-struct RecusiveTree {
-	std::array<RecusiveTree*, N> children{nullptr};
-	bool visited{false};
-	~RecusiveTree() {
-		for (int i = 0; i < N; ++i) delete children[i];
-	}
-
-};
+#include "StackMemory.hpp"
 
 class Stoogesort: public Sort {
 
-	RecusiveTree<3> nodes;
+	StackMemory<3> nodes;
 
-	void split(int, int, int,RecusiveTree<3>*);
+	void split(int, int, int,StackMemory<3>*);
 
 public:
 

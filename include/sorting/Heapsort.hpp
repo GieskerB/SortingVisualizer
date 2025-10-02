@@ -2,28 +2,31 @@
 #define INCLUDE_SORTING_HEAPSORT_HPP_
 
 #include "Sort.hpp"
-
 #include "../Array.hpp"
-#include "../Renderer.hpp"
+#include "StackMemory.hpp"
 
 class Heapsort: public Sort {
 
-private:
-	Uint16 heapSize;
+	StackMemory<3> heapify_nodes, sift_down_nodes;
 
-	Uint16 leftChildIndex(Uint16 parenIndex);
-	Uint16 rightChildIndex(Uint16 parentIndex);
+	bool full_sift;
 
-	Uint16 heapify(const Uint16 index, Uint16 currentSteps, const int maxSteps);
+	int heap_size;
 
-	Uint16 siftDown(const Uint16 index, Uint16 currentSteps, const int maxSteps);
+	static inline int left_child(int);
+	static inline int right_child(int);
+	inline bool has_left(int) const;
+	inline bool has_right(int) const;
 
-protected:
-	void sort(int stepCount) override;
+	void heapify(int, int, StackMemory<3>*);
+	void sift_down(int, int, StackMemory<3>*);
 
 public:
 
-	Heapsort(Array *array, Renderer *renderer);
+	Heapsort(Array *array);
+	void sort(int) override;
+	void reset() override;
+
 
 };
 

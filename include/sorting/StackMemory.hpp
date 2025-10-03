@@ -13,5 +13,16 @@ struct StackMemory {
 
 };
 
+template <int N,int M>
+struct StackValueMemory {
+    std::array<StackValueMemory*, N> children{nullptr};
+    std::array<int,M> values{0};
+    bool visited{false};
+    ~StackValueMemory() {
+        for (int i = 0; i < N; ++i) delete children[i];
+    }
+
+};
+
 
 #endif //SORTINGVISUALIZER_INCLUDE_SORTING_STACKMEMORY_HPP

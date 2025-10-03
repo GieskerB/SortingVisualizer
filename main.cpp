@@ -10,6 +10,7 @@
 #include "include/Array.hpp"
 #include "include/rectangle/AllRectangles.hpp"
 #include "include/sorting/AllSorts.hpp"
+#include "include/sorting/Quicksort.hpp"
 
 struct AppState {
 	const unsigned int MAX_DELAY = 5;
@@ -34,7 +35,7 @@ Sort* sorter;
 SDL_AppResult SDL_AppInit(void **appstate, int argc, char *argv[]) {
 	if (!SDL_Init(SDL_INIT_VIDEO)) return SDL_APP_FAILURE;
 
-	auto *state = new AppState(1000, 700, 2500);
+	auto *state = new AppState(1000, 700, 250);
 
 	SDL_CreateWindowAndRenderer("Sorting Visualizer", state->window_width, state->window_height,SDL_WINDOW_RESIZABLE,
 	                            &state->window,
@@ -46,7 +47,7 @@ SDL_AppResult SDL_AppInit(void **appstate, int argc, char *argv[]) {
 
 	std::srand((unsigned) std::time(nullptr)); // setup Random Seed
 
-	sorter = new Heapsort(&state->array);
+	sorter = new Quicksort(&state->array);
 
 	*appstate = state;
 
@@ -92,7 +93,7 @@ SDL_AppResult SDL_AppIterate(void *appstate) {
 		state->array[i]->draw(state->renderer);
 	}
 	SDL_RenderPresent(state->renderer);
-	sorter->sort(5);
+	sorter->sort(1);
 
 	SDL_Delay(state->MAX_DELAY);
 	return SDL_APP_CONTINUE;

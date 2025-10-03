@@ -2,33 +2,22 @@
 #define INCLUDE_SORTING_QUICKSORT_HPP_
 
 #include "Sort.hpp"
-
 #include "../Array.hpp"
-#include "../Renderer.hpp"
-
-enum PivotType {
-	FIRST, MIDDEL, LAST, RANDOM
-};
+#include "StackMemory.hpp"
 
 class Quicksort: public Sort {
-private:
 
-	const PivotType PIVOT_TYPE;
+	StackValueMemory<2,5> nodes;
 
-	Uint16 getPivotIndex(Uint16 begin, Uint16 end);
-
-	Uint16 quicksort(Uint16 begin, Uint16 end, Uint16 currentSteps,
-			const int maxSteps);
-
-
-protected:
-	void sort(int stepCount) override;
+	int pivot_index(int, int);
+	void quicksort(int, int, int, StackValueMemory<2,5>*);
 
 public:
 
-	Quicksort(Array *array, Renderer *renderer, PivotType pivotType =
-			PivotType::FIRST);
+	Quicksort(Array *array);
 
+	void sort(int) override;
+	void reset() override;
 };
 
 #endif /* INCLUDE_SORTING_QUICKSORT_HPP_ */

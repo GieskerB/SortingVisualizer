@@ -112,7 +112,7 @@ void Heapsort::sort(int limit) {
 void Heapsort::reset() {
 	heap_size = array->size();
 	full_sift = true;
-	for (int i = 0; i < 2; ++i) {
+	for (int i = 0; i < 3; ++i) {
 		delete heapify_nodes.children[i];
 		delete sift_down_nodes.children[i];
 		heapify_nodes.children[i] = nullptr;

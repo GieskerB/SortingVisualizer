@@ -3,11 +3,11 @@
 
 #include "Sort.hpp"
 #include "../Array.hpp"
-#include "StackMemory.hpp"
+#include "../StackMemory.hpp"
 
 class Heapsort: public Sort {
 
-	StackMemory<3> heapify_nodes, sift_down_nodes;
+	StackMemory<void,3> heapify_nodes, sift_down_nodes;
 
 	bool full_sift;
 
@@ -18,8 +18,8 @@ class Heapsort: public Sort {
 	inline bool has_left(int) const;
 	inline bool has_right(int) const;
 
-	void heapify(int, int, StackMemory<3>*);
-	void sift_down(int, int, StackMemory<3>*);
+	void heapify(int, int, StackMemory<void,3>*);
+	void sift_down(int, int, StackMemory<void,3>*);
 
 public:
 

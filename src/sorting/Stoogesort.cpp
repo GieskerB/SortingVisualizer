@@ -4,7 +4,7 @@
 
 Stoogesort::Stoogesort(Array *array) : Sort(array) {}
 
-void Stoogesort::split(const int begin, const int end, const int limit, StackMemory<3>* node) {
+void Stoogesort::split(const int begin, const int end, const int limit, StackMemory<void,3>* node) {
 	if (begin >= end) {
 		node->visited = true;
 		return;
@@ -25,9 +25,9 @@ void Stoogesort::split(const int begin, const int end, const int limit, StackMem
 		const int third = std::ceil(delta / 3.0);
 
 		if (node->children[0] == nullptr) {
-			node->children[0] = new StackMemory<3>;
-			node->children[1] = new StackMemory<3>;
-			node->children[2] = new StackMemory<3>;
+			node->children[0] = new StackMemory<void,3>;
+			node->children[1] = new StackMemory<void,3>;
+			node->children[2] = new StackMemory<void,3>;
 		}
 
 		if (!node->children[0]->visited)

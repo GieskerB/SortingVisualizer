@@ -7,18 +7,15 @@
 #include "../Renderer.hpp"
 
 class Mergesort: public Sort {
-private:
 
-	Uint8 divide(Uint16 start, Uint16 end, Uint8 currentSteps, int maxSteps);
-	Uint8 conquer(Uint16 start, Uint16 middle, Uint16 end, Uint8 currentSteps,
-                  int maxSteps);
-
-protected:
-	void sort(int stepCount) override;
+	void divide(int, int, int);
+	void conquer(int, int, int, int);
 
 public:
 
-	Mergesort(Array *array, Renderer *renderer);
+	Mergesort(Array*);
+	void sort(int) override;
+	void reset() override;
 
 };
 

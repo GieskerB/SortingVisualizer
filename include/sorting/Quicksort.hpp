@@ -1,16 +1,17 @@
 #ifndef INCLUDE_SORTING_QUICKSORT_HPP_
 #define INCLUDE_SORTING_QUICKSORT_HPP_
 
+#include <tuple>
+
 #include "Sort.hpp"
 #include "../Array.hpp"
-#include "StackMemory.hpp"
+#include "../StackMemory.hpp"
 
 class Quicksort: public Sort {
 
-	StackValueMemory<2,5> nodes;
+	StackMemory<std::tuple<bool,int,int,int,bool>,2> nodes;
 
-	int pivot_index(int, int);
-	void quicksort(int, int, int, StackValueMemory<2,5>*);
+	void quicksort(int, int, int, StackMemory<std::tuple<bool,int,int,int,bool>, 2>*);
 
 public:
 

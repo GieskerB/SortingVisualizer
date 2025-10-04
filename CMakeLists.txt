@@ -18,8 +18,9 @@ add_executable(${PROJECT_NAME} main.cpp
         src/sorting/Selectionsort.cpp
         src/sorting/Stoogesort.cpp
         src/sorting/Heapsort.cpp
-        include/sorting/StackMemory.hpp
-        src/sorting/Quicksort.cpp)
+        include/StackMemory.hpp
+        src/sorting/Quicksort.cpp
+        src/sorting/Mergesort.cpp)
 target_include_directories(${PROJECT_NAME} PUBLIC ${SDL3_INCLUDE_DIRS})
 
 target_link_libraries(${PROJECT_NAME} PRIVATE SDL3::SDL3)

@@ -1,85 +1,78 @@
 #include "../../include/sorting/Mergesort.hpp"
 
-#include "../../include/rectangle/InteractiveRectangle.hpp"
+Mergesort::Mergesort(Array *array):Sort(array) {}
 
-Uint8 Mergesort::divide(Uint16 start, Uint16 end, Uint8 currentSteps,
-		int maxSteps) {
+void Mergesort::divide(int start, int end, int limit) {
 	if (start >= end) {
-		return currentSteps;
+		return;
 	}
 
-	const Uint16 middle = (start + end) / 2 + start;
+	const int middle = (start + end) / 2 + start;
 
-	currentSteps = this->divide(start, middle, currentSteps, maxSteps);
-	currentSteps = this->divide(middle, end, currentSteps, maxSteps);
+	divide(start, middle, limit);
+	divide(middle, end, limit);
 
-	currentSteps = this->conquer(start, middle, end, currentSteps, maxSteps);
-
-	return currentSteps;
+	conquer(start, middle, end,  limit);
 }
 
-Uint8 Mergesort::conquer(Uint16 start, Uint16 middle, Uint16 end,
-		Uint8 currentSteps, int maxSteps) {
+void Mergesort::conquer(const int start, const int middle, const int end, int limit) {
 
-	const Uint16 ARR1SIZE = middle - start;
-	const Uint16 ARR2SIZE = end - middle;
+	const int ARR1SIZE = middle - start;
+	const int ARR2SIZE = end - middle;
 
-	BaseRectangle *arr1[ARR1SIZE], *arr2[ARR2SIZE];
+	// BaseRectangle *arr1[ARR1SIZE], *arr2[ARR2SIZE];
 
 	for (int i = start; i < middle; i++) {
-		arr1[i - start] = this->array->get(i);
+		// arr1[i - start] = array->get(i);
 	}
 
 	for (int i = middle; i < end; i++) {
-		arr2[i - middle] = this->array->get(i);
+		// arr2[i - middle] = array->get(i);
 	}
 
-	Uint16 leftPointer = start, rightPointer = middle, totalPointer = start;
+	int leftPointer = start, rightPointer = middle, totalPointer = start;
 
-	while (leftPointer < middle && rightPointer < end) {
-		if (this->array->TYPE == RectangleType::INTERACTIVE) {
-			((InteractiveRectangle*) arr1[leftPointer])->setCompared();
-			((InteractiveRectangle*) arr2[rightPointer])->setCompared();
-		}
-		if (arr1[leftPointer]->getValue() > arr2[rightPointer]->getValue()) {
-			if (this->array->TYPE == RectangleType::INTERACTIVE) {
-				((InteractiveRectangle*) arr2[rightPointer])->setSwapped();
-			}
-			this->array->set(arr2[rightPointer++], totalPointer++);
+	// while (leftPointer < middle && rightPointer < end) {
+	// 	if (array->TYPE == RectangleType::INTERACTIVE) {
+	// 		((InteractiveRectangle*) arr1[leftPointer])->setCompared();
+	// 		((InteractiveRectangle*) arr2[rightPointer])->setCompared();
+	// 	}
+	// 	if (arr1[leftPointer]->getValue() > arr2[rightPointer]->getValue()) {
+	// 		if (array->TYPE == RectangleType::INTERACTIVE) {
+	// 			((InteractiveRectangle*) arr2[rightPointer])->setSwapped();
+	// 		}
+	// 		array->set(arr2[rightPointer++], totalPointer++);
+	//
+	// 	} else {
+	// 		if (array->TYPE == RectangleType::INTERACTIVE) {
+	// 			((InteractiveRectangle*) arr1[leftPointer])->setSwapped();
+	// 		}
+	// 		array->set(arr1[leftPointer++], totalPointer++);
+	// 	}
+	//
+	// }
 
-		} else {
-			if (this->array->TYPE == RectangleType::INTERACTIVE) {
-				((InteractiveRectangle*) arr1[leftPointer])->setSwapped();
-			}
-			this->array->set(arr1[leftPointer++], totalPointer++);
-		}
-
-	}
-
-	while (leftPointer < middle) {
-		if (this->array->TYPE == RectangleType::INTERACTIVE) {
-			((InteractiveRectangle*) arr1[leftPointer])->setSwapped();
-		}
-		this->array->set(arr1[leftPointer++], totalPointer++);
-	}
-
-	while (rightPointer < end) {
-		if (this->array->TYPE == RectangleType::INTERACTIVE) {
-			((InteractiveRectangle*) arr2[rightPointer])->setSwapped();
-		}
-		this->array->set(arr2[rightPointer++], totalPointer++);
-	}
-
-	this->renderer->renderArray();
-
-	return currentSteps;
+	// while (leftPointer < middle) {
+	// 	if (array->TYPE == RectangleType::INTERACTIVE) {
+	// 		((InteractiveRectangle*) arr1[leftPointer])->setSwapped();
+	// 	}
+	// 	array->set(arr1[leftPointer++], totalPointer++);
+	// }
+	//
+	// while (rightPointer < end) {
+	// 	if (array->TYPE == RectangleType::INTERACTIVE) {
+	// 		((InteractiveRectangle*) arr2[rightPointer])->setSwapped();
+	// 	}
+	// 	array->set(arr2[rightPointer++], totalPointer++);
+	// }
 }
 
-Mergesort::Mergesort(Array *array, Renderer *renderer) :
-		Sort(array, renderer) {
+
+void Mergesort::sort(int limit) {
+	divide(0, array->size(), limit);
 }
 
-void Mergesort::sort(int stepCount) {
-	this->divide(0, this->array->SIZE, 0, stepCount);
+void Mergesort::reset() {
+
 }
 

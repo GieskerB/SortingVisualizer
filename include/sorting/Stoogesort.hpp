@@ -4,13 +4,13 @@
 
 #include "Sort.hpp"
 #include "../Array.hpp"
-#include "StackMemory.hpp"
+#include "../StackMemory.hpp"
 
 class Stoogesort: public Sort {
 
-	StackMemory<3> nodes;
+	StackMemory<void,3> nodes;
 
-	void split(int, int, int,StackMemory<3>*);
+	void split(int, int, int,StackMemory<void,3>*);
 
 public:
 

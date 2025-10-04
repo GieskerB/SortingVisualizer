@@ -35,7 +35,7 @@ Sort* sorter;
 SDL_AppResult SDL_AppInit(void **appstate, int argc, char *argv[]) {
 	if (!SDL_Init(SDL_INIT_VIDEO)) return SDL_APP_FAILURE;
 
-	auto *state = new AppState(1000, 700, 250);
+	auto *state = new AppState(1000, 700, 2500);
 
 	SDL_CreateWindowAndRenderer("Sorting Visualizer", state->window_width, state->window_height,SDL_WINDOW_RESIZABLE,
 	                            &state->window,

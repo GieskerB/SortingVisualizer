@@ -12,11 +12,11 @@ bool Heapsort::has_left(const int index) const { return left_child(index) < heap
 
 bool Heapsort::has_right(const int index) const { return right_child(index) < heap_size; }
 
-void Heapsort::heapify(const int index, const int limit, StackMemory<3> *node) {
+void Heapsort::heapify(const int index, const int limit, StackMemory<void,3> *node) {
 	if (node->children[0] == nullptr) {
-		node->children[0] = new StackMemory<3>;
-		node->children[1] = new StackMemory<3>;
-		node->children[2] = new StackMemory<3>;
+		node->children[0] = new StackMemory<void,3>;
+		node->children[1] = new StackMemory<void,3>;
+		node->children[2] = new StackMemory<void,3>;
 	}
 	if (has_left(index) and !node->children[0]->visited) heapify(left_child(index), limit, node->children[0]);
 	if (has_right(index) and !node->children[1]->visited) heapify(right_child(index), limit, node->children[1]);
@@ -25,14 +25,14 @@ void Heapsort::heapify(const int index, const int limit, StackMemory<3> *node) {
 	node->visited = false;
 }
 
-void Heapsort::sift_down(const int index, const int limit, StackMemory<3> *node) {
+void Heapsort::sift_down(const int index, const int limit, StackMemory<void,3> *node) {
 	// Break condition: "Node" is a leaf
 	if (left_child(index) >= heap_size) return;
 
 	if (node->children[0] == nullptr) {
-		node->children[0] = new StackMemory<3>;
-		node->children[1] = new StackMemory<3>;
-		node->children[2] = new StackMemory<3>;
+		node->children[0] = new StackMemory<void,3>;
+		node->children[1] = new StackMemory<void,3>;
+		node->children[2] = new StackMemory<void,3>;
 	}
 
 	const int lci = left_child(index);

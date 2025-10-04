@@ -9,9 +9,9 @@
 
 class Quicksort: public Sort {
 
-	StackMemory<std::tuple<bool,int,int,int,bool>,2> nodes;
+	StackMemory<std::tuple<bool,float,int,int,bool>,2> nodes;
 
-	void quicksort(int, int, int, StackMemory<std::tuple<bool,int,int,int,bool>, 2>*);
+	void quicksort(int, int, int, StackMemory<std::tuple<bool,float,int,int,bool>, 2>*);
 
 public:
 

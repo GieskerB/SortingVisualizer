@@ -92,13 +92,13 @@ void Array::window_resize(const float old_width, const float old_height, const f
 	}
 }
 
-int Array::value(const int index) const {
+float Array::value(const int index) const {
 	if (index < 0 || index >= c_size) {
 		return -1;
 	}
 	return m_rects[index]->value();
 }
-void Array::value(const int index, const int value) const {
+void Array::value(const int index, const float value) const {
 	if (index < 0 || index >= c_size) {
 		throw std::invalid_argument("index out of range");
 	}

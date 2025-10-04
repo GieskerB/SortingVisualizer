@@ -13,7 +13,6 @@ class Array {
 
 public:
 
-
 	Array(RectangleType, int, float, float);
 	~Array();
 
@@ -24,8 +23,8 @@ public:
 
 	void window_resize(float,float,float,float);
 
-	[[nodiscard]] int value(int index) const;
-	void value(int index, int value) const;
+	[[nodiscard]] float value(int index) const;
+	void value(int index, float value) const;
 
 	[[nodiscard]] int size() const;
 

@@ -37,3 +37,7 @@ void InteractRect::resetState() {
 void InteractRect::init_color(const float) {
 	resetChecked();
 }
+
+Rect* InteractRect::copy() {
+	return new InteractRect(*this);
+}

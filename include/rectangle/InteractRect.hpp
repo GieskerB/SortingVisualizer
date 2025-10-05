@@ -22,6 +22,7 @@ public:
 	void setSwapped();
 	void resetState() override;
 	void init_color(float) override;
+	Rect* copy() override;
 
 };
 

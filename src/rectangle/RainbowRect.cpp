@@ -55,5 +55,10 @@ void RainbowRect::init_color(const float max_val) {
 void RainbowRect::resetState() {
 }
 
+Rect* RainbowRect::copy() {
+	return new RainbowRect(*this);
+}
+
+
 #endif /* INCLUDE_RAINBOWRECTANGLE_CPP_ */
 

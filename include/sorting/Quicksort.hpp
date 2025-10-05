@@ -7,9 +7,11 @@
 #include "../Array.hpp"
 #include "../StackMemory.hpp"
 
+using StackMemQS = StackMemory<std::tuple<bool,float,int,int,bool>,2>;
+
 class Quicksort: public Sort {
 
-	StackMemory<std::tuple<bool,float,int,int,bool>,2> nodes;
+	StackMemQS nodes;
 
 	void quicksort(int, int, int, StackMemory<std::tuple<bool,float,int,int,bool>, 2>*);
 

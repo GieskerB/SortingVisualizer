@@ -11,6 +11,7 @@ struct RainbowRect: Rect {
 
 	void resetState() override;
 	void init_color(float) override;
+	Rect* copy() override;
 };
 
 #endif /* INCLUDE_RAINBOWRECTANGLE_HPP_ */

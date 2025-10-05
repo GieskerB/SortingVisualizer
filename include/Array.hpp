@@ -16,12 +16,13 @@ public:
 	Array(RectangleType, int, float, float);
 	~Array();
 
-	void shuffle();
+	void shuffle() const;
 	[[nodiscard]] bool is_sorted() const;
-	void swap(int,int);
+	void swap(int,int) const;
+	void swap(int,Rect*) const;
 	void print() const;
 
-	void window_resize(float,float,float,float);
+	void window_resize(float,float,float,float) const;
 
 	[[nodiscard]] float value(int index) const;
 	void value(int index, float value) const;

@@ -12,12 +12,12 @@ Quicksort::Quicksort(Array *array) : Sort(array), nodes{{false, 0.0f, 0, 0, fals
 }
 
 void Quicksort::quicksort(const int begin, const int end, const int limit,
-                          StackMemory<std::tuple<bool, float, int, int, bool>, 2> *node) {
+                          StackMemQS *node) {
 	if (begin >= end || end > array->size()) return;
 
 	if (node->children[0] == nullptr) {
-		node->children[0] = new StackMemory<std::tuple<bool, float, int, int, bool>, 2>{{false, 0.0f, 0, 0, false}};
-		node->children[1] = new StackMemory<std::tuple<bool, float, int, int, bool>, 2>{{false, 0.0f, 0, 0, false}};
+		node->children[0] = new StackMemQS{{false, 0.0f, 0, 0, false}};
+		node->children[1] = new StackMemQS{{false, 0.0f, 0, 0, false}};
 	}
 
 	// pick a pivot element and swap it with the last element in this range

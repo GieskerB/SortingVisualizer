@@ -4,7 +4,6 @@
 #include "Sort.hpp"
 
 #include "../Array.hpp"
-#include "../Renderer.hpp"
 
 class Bogosort: public Sort {
 

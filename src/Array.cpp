@@ -40,14 +40,14 @@ Array::~Array() {
 }
 
 // Shuffles the array
-void Array::shuffle() {
+void Array::shuffle() const {
 	for (int i = 0; i < c_size; i++) {
 		const int randIndex = std::rand() % (c_size - i) + i;
 		swap(i, randIndex);
 	}
 }
 
-void Array::swap(int i, int j ) {
+void Array::swap(const int i, const int j) const {
 	const auto temp_r = m_rects[i]->r;
 	const auto temp_g = m_rects[i]->g;
 	const auto temp_b = m_rects[i]->b;
@@ -63,6 +63,24 @@ void Array::swap(int i, int j ) {
 	m_rects[j]->b = temp_b;
 	m_rects[j]->y = temp_y;
 	m_rects[j]->h = temp_h;
+}
+
+void Array::swap(const int i, Rect* other) const {
+	const auto temp_r = m_rects[i]->r;
+	const auto temp_g = m_rects[i]->g;
+	const auto temp_b = m_rects[i]->b;
+	const auto temp_y = m_rects[i]->y;
+	const auto temp_h = m_rects[i]->h;
+	m_rects[i]->r = other->r;
+	m_rects[i]->g = other->g;
+	m_rects[i]->b = other->b;
+	m_rects[i]->y = other->y;
+	m_rects[i]->h = other->h;
+	other->r = temp_r;
+	other->g = temp_g;
+	other->b = temp_b;
+	other->y = temp_y;
+	other->h = temp_h;
 }
 
 void Array::print() const {
@@ -83,7 +101,7 @@ bool Array::is_sorted() const {
 	return true;
 }
 
-void Array::window_resize(const float old_width, const float old_height, const float new_width, const float new_height) {
+void Array::window_resize(const float old_width, const float old_height, const float new_width, const float new_height) const {
 	for (auto& rect : m_rects) {
 		rect->x = map_range(rect->x,0,old_width,0,new_width);
 		rect->y = map_range(rect->y,0,old_height,0,new_height);

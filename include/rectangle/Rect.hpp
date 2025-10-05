@@ -28,6 +28,7 @@ struct Rect : SDL_FRect {
 	void draw(SDL_Renderer* renderer) const;
 	virtual void resetState() = 0;
 	virtual void init_color(float) = 0;
+	virtual Rect* copy() = 0;
 
 };
 

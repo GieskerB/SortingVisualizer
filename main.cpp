@@ -5,12 +5,70 @@
 
 #include <cstdlib>
 #include <ctime>
-#include <iostream>
+
+#include <algorithm>
+#include <unordered_map>
 
 #include "include/Array.hpp"
 #include "include/rectangle/AllRectangles.hpp"
 #include "include/sorting/AllSorts.hpp"
-#include "include/sorting/Quicksort.hpp"
+
+
+// =====================================================================================================================
+
+/*
+ * Arg Parser for Sorting visualizer
+ */
+
+struct Args {
+
+	static const std::array<std::string,9> algorithms;
+	static const std::unordered_map<std::string, int> algo_ids;
+
+	int width = 1000, height = 600, array_size = 100;
+	std::string sorting_algorithm = "Bubblesort";
+	int algo_id = 2;
+};
+
+const std::array<std::string,9> Args::algorithms {"Bogosort", "Bubblesort", "Heapsort", "Insertionsort", "Mergesort", "Quicksort", "Radixsort", "Selectionsort", "Stoogesort"};
+const std::unordered_map<std::string, int> Args::algo_ids {{"Bogosort",1}, {"Bubblesort",2}, {"Heapsort",3}, {"Insertionsort",4}, {"Mergesort",5}, {"Quicksort",6}, {"Radixsort",7}, {"Selectionsort",8}, {"Stoogesort",9}};
+
+void parse_args(int argc, char *argv[], Args *args) {
+	for (int i = 1; i < argc; ++i) {
+		std::string arg{argv[i]};
+		if (arg.length() == 2 and arg[0] == '-') {
+			switch (arg[1]) {
+			case 'w':
+				args->width = atoi(argv[++i]);
+				std::cout << "W";
+				continue;
+			case 'h':
+				args->height = atoi(argv[++i]);
+				std::cout << "H";
+				continue;
+			case 'n':
+				args->array_size = atoi(argv[++i]);
+				std::cout << "N";
+				continue;
+			case 'a':
+				const std::string& algo {argv[++i]};
+				std::cout << "A";
+
+				if (std::find(Args::algorithms.begin(), Args::algorithms.end(),algo) != Args::algorithms.end()) {
+					args->algo_id = Args::algo_ids.at(algo);
+					args->sorting_algorithm = arg[++i];
+				}
+
+				continue;
+			}
+		} else {
+			std::cerr << arg << " -> currently only support single char arguments.\n";
+		}
+		std::cout << "i is now " << i << "\n";
+	}
+}
+
+// =====================================================================================================================
 
 struct AppState {
 	const unsigned int MAX_DELAY = 5;
@@ -35,7 +93,11 @@ Sort* sorter;
 SDL_AppResult SDL_AppInit(void **appstate, int argc, char *argv[]) {
 	if (!SDL_Init(SDL_INIT_VIDEO)) return SDL_APP_FAILURE;
 
-	auto *state = new AppState(1000, 700, 10);
+	Args args{};
+
+	parse_args(argc, argv, &args);
+
+	auto *state = new AppState(args.width, args.height, args.array_size);
 
 	SDL_CreateWindowAndRenderer("Sorting Visualizer", state->window_width, state->window_height,SDL_WINDOW_RESIZABLE,
 	                            &state->window,
@@ -47,7 +109,39 @@ SDL_AppResult SDL_AppInit(void **appstate, int argc, char *argv[]) {
 
 	std::srand((unsigned) std::time(nullptr)); // setup Random Seed
 
-	sorter = new Bogosort(&state->array);
+	switch (args.algo_id)
+	{
+
+		// const std::array<std::string,9> Args::algorithms {"Bogosort", "Bubblesort", "Heapsort", "Insertionsort", "Mergesort", "Quicksort", "Radixsort", "Selectionsort", "Stoogesort"};
+		case 1:
+			sorter = new Bogosort(&state->array);
+			break;
+		case 2:
+			sorter = new Bubblesort(&state->array);
+			break;
+		case 3:
+			sorter = new Heapsort(&state->array);
+			break;
+		case 4:
+			sorter = new Insertionsort(&state->array);
+			break;
+		case 5:
+			sorter = new Mergesort(&state->array);
+			break;
+		case 6:
+			sorter = new Quicksort(&state->array);
+			break;
+		case 7:
+			// sorter = new Radixsort(&state->array);
+			break;
+		case 8:
+			sorter = new Selectionsort(&state->array);
+			break;
+		case 9:
+			sorter = new Stoogesort(&state->array);
+			break;
+	}
+
 
 	*appstate = state;
 

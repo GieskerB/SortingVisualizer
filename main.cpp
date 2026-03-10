@@ -40,23 +40,19 @@ void parse_args(int argc, char *argv[], Args *args) {
 			switch (arg[1]) {
 			case 'w':
 				args->width = atoi(argv[++i]);
-				std::cout << "W";
 				continue;
 			case 'h':
 				args->height = atoi(argv[++i]);
-				std::cout << "H";
 				continue;
 			case 'n':
 				args->array_size = atoi(argv[++i]);
-				std::cout << "N";
 				continue;
 			case 'a':
 				const std::string& algo {argv[++i]};
-				std::cout << "A";
 
 				if (std::find(Args::algorithms.begin(), Args::algorithms.end(),algo) != Args::algorithms.end()) {
 					args->algo_id = Args::algo_ids.at(algo);
-					args->sorting_algorithm = arg[++i];
+					args->sorting_algorithm = algo;
 				}
 
 				continue;

@@ -4,11 +4,6 @@
 
 #define BASE 10
 
-const char Radixsort::DIGITS[] = { '0', '1', '2', '3', '4', '5', '6', '7', '8',
-		'9', 'A', 'B', 'C', 'D', 'E', 'F' };
-
-const Uint8 Radixsort::BUFFER_SIZE = 12;
-
 Radixsort::Radixsort(Array *array): Sort(array), number_index(-1), glob_bucket_index(0),glob_array_index(0),numbers_in_buckets(false){}
 
 void Radixsort::radix_sort(int limit) {
@@ -28,7 +23,7 @@ void Radixsort::radix_sort(int limit) {
 
 	int bucket_index = glob_bucket_index;
 	std::queue<Rect*>& bucket = buckets[bucket_index];
-	for (int i = glob_array_index;i < array->size(); i++) {
+	for (int i = glob_array_index; i < array->size(); i++) {
 		while (bucket.empty() and bucket_index < buckets.size()) {
 			bucket = buckets[++bucket_index];
 		}

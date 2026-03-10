@@ -7,7 +7,6 @@
 #include "Sort.hpp"
 
 #include "../Array.hpp"
-#include "../Renderer.hpp"
 
 // TODO add different bases
 
@@ -16,9 +15,6 @@
 // };
 
 class Radixsort: public Sort {
-
-	static const char DIGITS[];
-	static const Uint8 BUFFER_SIZE;
 
 	std::array<std::queue<Rect*>,10> buckets;
 

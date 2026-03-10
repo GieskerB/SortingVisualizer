@@ -29,10 +29,10 @@ void Radixsort::radix_sort(int limit) {
 		}
 		Rect* rect = bucket.front();
 		bucket.pop();
-		array->swap(i,rect);
+		array->swap(i, rect);
 		swaps++;
 		if (swaps >= limit) {
-			glob_array_index = i+1;
+			glob_array_index = i + 1;
 			glob_bucket_index = bucket_index;
 			return;
 		}

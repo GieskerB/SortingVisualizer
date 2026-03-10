@@ -8,7 +8,7 @@
 #include "Insertionsort.hpp"
 #include "Mergesort.hpp"
 #include "Quicksort.hpp"
-// #include "Radixsort.hpp"
+#include "Radixsort.hpp"
 #include "Selectionsort.hpp"
 #include "Stoogesort.hpp"
 

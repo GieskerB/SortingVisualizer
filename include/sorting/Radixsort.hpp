@@ -1,6 +1,7 @@
 #ifndef INCLUDE_SORTING_RADIXSORT_HPP_
 #define INCLUDE_SORTING_RADIXSORT_HPP_
 
+#include <array>
 #include <queue>
 
 #include "Sort.hpp"
@@ -8,34 +9,30 @@
 #include "../Array.hpp"
 #include "../Renderer.hpp"
 
-enum Base {
-	BINARY = 2, OCTAL = 8, DECIMAL = 10, HEXADECIMAL = 1
-};
+// TODO add different bases
+
+// enum Base {
+// 	BINARY = 2, OCTAL = 8, DECIMAL = 10, HEXADECIMAL = 16
+// };
 
 class Radixsort: public Sort {
-private:
 
 	static const char DIGITS[];
 	static const Uint8 BUFFER_SIZE;
 
-	const Base BASE;
+	std::array<std::queue<Rect*>,10> buckets;
 
-	const Uint8 largestNumberLength;
+	void radix_sort(int);
 
-	std::queue<BaseRectangle*> *buckets;
-
-
-	Uint8 digitToNumber(char digit);
-	Uint8 numberLengthBaseX(Uint16 numberDec);
-	char& toBaseXConverter(Uint16 numberDec);
-
-protected:
-	void sort(int stepCount) override;
+	int number_index, glob_bucket_index, glob_array_index;
+	bool numbers_in_buckets;
 
 public:
 
-	Radixsort(Array *array, Renderer *renderer, Base base = DECIMAL);
-	~Radixsort();
+	Radixsort(Array *array);
+
+	void sort(int) override;
+	void reset() override;
 };
 
 #endif /* INCLUDE_SORTING_RADIXSORT_HPP_ */

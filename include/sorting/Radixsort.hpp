@@ -18,7 +18,7 @@ class Radixsort: public Sort {
 
 	std::array<std::queue<Rect*>,10> buckets;
 
-	void radix_sort(int);
+	void sort_in_buckets();
 
 	int number_index, glob_bucket_index, glob_array_index;
 	bool numbers_in_buckets;

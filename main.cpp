@@ -22,7 +22,7 @@
 
 struct Args {
 
-	static const std::array<std::string,9> algorithms;
+	static const std::array<std::string,10> algorithms;
 	static const std::unordered_map<std::string, int> algo_ids;
 
 	int width = 1000, height = 600, array_size = 100;
@@ -30,8 +30,8 @@ struct Args {
 	int algo_id = 2;
 };
 
-const std::array<std::string,9> Args::algorithms {"Bogosort", "Bubblesort", "Heapsort", "Insertionsort", "Mergesort", "Quicksort", "Radixsort", "Selectionsort", "Stoogesort"};
-const std::unordered_map<std::string, int> Args::algo_ids {{"Bogosort",1}, {"Bubblesort",2}, {"Heapsort",3}, {"Insertionsort",4}, {"Mergesort",5}, {"Quicksort",6}, {"Radixsort",7}, {"Selectionsort",8}, {"Stoogesort",9}};
+const std::array<std::string,10> Args::algorithms {"Bogosort", "Bubblesort", "Cyclesort", "Heapsort", "Insertionsort", "Mergesort", "Quicksort", "Radixsort", "Selectionsort", "Stoogesort"};
+const std::unordered_map<std::string, int> Args::algo_ids {{"Bogosort",1}, {"Bubblesort",2}, {"Cyclesort",3},{"Heapsort",4}, {"Insertionsort",5}, {"Mergesort",6}, {"Quicksort",7}, {"Radixsort",8}, {"Selectionsort",9}, {"Stoogesort",10}};
 
 void parse_args(int argc, char *argv[], Args *args) {
 	for (int i = 1; i < argc; ++i) {
@@ -105,10 +105,7 @@ SDL_AppResult SDL_AppInit(void **appstate, int argc, char *argv[]) {
 
 	std::srand((unsigned) std::time(nullptr)); // setup Random Seed
 
-	switch (args.algo_id)
-	{
-
-		// const std::array<std::string,9> Args::algorithms {"Bogosort", "Bubblesort", "Heapsort", "Insertionsort", "Mergesort", "Quicksort", "Radixsort", "Selectionsort", "Stoogesort"};
+	switch (args.algo_id) {
 		case 1:
 			sorter = new Bogosort(&state->array);
 			break;
@@ -116,24 +113,27 @@ SDL_AppResult SDL_AppInit(void **appstate, int argc, char *argv[]) {
 			sorter = new Bubblesort(&state->array);
 			break;
 		case 3:
-			sorter = new Heapsort(&state->array);
+			sorter = new Cyclesort(&state->array);
 			break;
 		case 4:
-			sorter = new Insertionsort(&state->array);
+			sorter = new Heapsort(&state->array);
 			break;
 		case 5:
-			sorter = new Mergesort(&state->array);
+			sorter = new Insertionsort(&state->array);
 			break;
 		case 6:
-			sorter = new Quicksort(&state->array);
+			sorter = new Mergesort(&state->array);
 			break;
 		case 7:
-			// sorter = new Radixsort(&state->array);
+			sorter = new Quicksort(&state->array);
 			break;
 		case 8:
-			sorter = new Selectionsort(&state->array);
+			sorter = new Radixsort(&state->array);
 			break;
 		case 9:
+			sorter = new Selectionsort(&state->array);
+			break;
+		case 10:
 			sorter = new Stoogesort(&state->array);
 			break;
 	}

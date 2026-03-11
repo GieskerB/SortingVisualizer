@@ -85,7 +85,7 @@ void Array::swap(const int i, Rect* other) const {
 
 void Array::print() const {
 	for (const auto& r : m_rects) {
-		std::cout << r->h << " ";
+		std::cout << r->value() << " ";
 	}
 	std::cout << std::endl;
 }

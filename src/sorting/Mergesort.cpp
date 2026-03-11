@@ -30,8 +30,6 @@ void Mergesort::divide(const int start, const int end, const int limit, StackMem
 
 void Mergesort::conquer(const int start, const int middle, const int end, int limit, StackMemMS* node) {
 
-	std::cout << "\n\nCONQUER "<< start<< " " << middle<< " " << end <<"\n";
-
 	if (node->children[0] == nullptr) {
 		node->children[0] = new StackMemMS{{false,{},{},0,0,0}};
 		node->children[1] = new StackMemMS{{false,{},{},0,0,0}};
@@ -44,17 +42,9 @@ void Mergesort::conquer(const int start, const int middle, const int end, int li
 	if (!std::get<ARR_FILLED>(node->data)) {
 		for (int i = start; i < middle; i++) {
 			arr1.push_back(std::make_shared<Rect*>(array->operator[](i)->copy()));
-			std::cout << "arr1[" << i - start << "]"<<*arr1.back()<<"\n";
 		}
 		for (int i = middle; i < end; i++) {
 			arr2.push_back(std::make_shared<Rect*>(array->operator[](i)->copy()));
-			std::cout << "arr2[" << i - middle << "]"<<*arr2.back()<<"\n";
-		}
-
-		std::cout << "SIZE: " << arr1.size() << " " <<arr2.size() <<std::endl;
-
-		for (const auto& rect: arr1) {
-			std::cout <<"ARR1: "<< *rect<< '\n';
 		}
 
 		std::get<LEFT>(node->data) = 0;
@@ -67,23 +57,15 @@ void Mergesort::conquer(const int start, const int middle, const int end, int li
 	int& right_ptr = std::get<RIGHT>(node->data);
 	int& total_ptr = std::get<TOTAL>(node->data);
 
-	std::cout << "LRT: " << left_ptr << " " << right_ptr << " " << total_ptr << '\n';
+	while (left_ptr < arr1.size() && right_ptr < arr2.size()) {
 
-	std::cout << "D\n";
-	while (left_ptr < middle && right_ptr < end) {
-
-		std::cout << "D1\n";
-		std::cout << left_ptr << " " << arr1[left_ptr] << "\n";
-		std::cout << right_ptr << " " << arr2[right_ptr] << "\n";
 		if ((*arr1[left_ptr])->value() > (*arr2[right_ptr])->value()) {
-		std::cout << "D2\n";
 			array->swap(total_ptr++,*arr2[right_ptr++]);
 			++swaps;
 			if (swaps >= limit) {
 				throw swaps;
 			}
 		} else {
-		std::cout << "D3\n";
 			array->swap(total_ptr++,*arr1[left_ptr++]);
 			++swaps;
 			if (swaps >= limit) {
@@ -91,25 +73,23 @@ void Mergesort::conquer(const int start, const int middle, const int end, int li
 			}
 		}
 	}
-	std::cout << "E\n";
 
-	while (left_ptr < middle) {
+	while (left_ptr < arr1.size()) {
 		array->swap(total_ptr++,*arr1[left_ptr++]);
 		++swaps;
 		if (swaps >= limit) {
 			throw swaps;
 		}
 	}
-	std::cout << "F\n";
 
-	while (right_ptr < end) {
+	while (right_ptr < arr2.size()) {
 		array->swap(total_ptr++,*arr2[right_ptr++]);
 		++swaps;
 		if (swaps >= limit) {
 			throw swaps;
 		}
 	}
-	std::cout << "G\n";
+
 	node->visited = true;
 }
 

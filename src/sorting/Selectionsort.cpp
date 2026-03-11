@@ -12,7 +12,7 @@ void Selectionsort::sort(int limit) {
 
 	swaps = 0;
 	for (int i = glob_i; i < array->size() - 1; ++i) {
-		int min_val = std::numeric_limits<int>::max();
+		float min_val = std::numeric_limits<float>::max();
 		int min_index = 0;
 		glob_j = i;
 		int j = glob_j;
@@ -25,7 +25,7 @@ void Selectionsort::sort(int limit) {
 		array->swap(i,min_index);
 		++swaps;
 		if (swaps >= limit) {
-			glob_i = i;
+			glob_i = i+1;
 			glob_j = j;
 			return;
 		}

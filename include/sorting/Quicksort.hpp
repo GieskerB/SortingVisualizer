@@ -4,7 +4,6 @@
 #include <tuple>
 
 #include "Sort.hpp"
-#include "../Array.hpp"
 #include "../StackMemory.hpp"
 
 using StackMemQS = StackMemory<std::tuple<bool,float,int,int,bool>,2>;

@@ -1,104 +1,57 @@
 #include "../../include/sorting/Radixsort.hpp"
 
-#include "../../include/rectangle/InteractiveRectangle.hpp"
+#include <cmath>
 
-const char Radixsort::DIGITS[] = { '0', '1', '2', '3', '4', '5', '6', '7', '8',
-		'9', 'A', 'B', 'C', 'D', 'E', 'F' };
+#define BASE 10
 
-const Uint8 Radixsort::BUFFER_SIZE = 12;
+Radixsort::Radixsort(Array *array): Sort(array), number_index(-1), glob_bucket_index(0),glob_array_index(0),numbers_in_buckets(false){}
 
-Radixsort::Radixsort(Array *array, Renderer *renderer, Base base) :
-		Sort(array, renderer), BASE(
-				(2 <= base && base <= 16) ? base : Base::DECIMAL), largestNumberLength(
-				this->numberLengthBaseX(array->SIZE)), buckets(
-				new std::queue<BaseRectangle*>[this->BASE]) {
-
-}
-
-Radixsort::~Radixsort() {
-	delete[] buckets;
-}
-
-Uint8 Radixsort::digitToNumber(char digit) {
-
-	switch (digit) {
-	case '0' ... '9':
-		return digit - 48;
-	case 'A':
-		return 10;
-	case 'B':
-		return 11;
-	case 'C':
-		return 12;
-	case 'D':
-		return 13;
-	case 'E':
-		return 14;
-	case 'F':
-		return 15;
-	default:
-		return 0;
+void Radixsort::sort_in_buckets() {
+	for (int i = 0; i < BASE; i++) {
+		buckets[i] = {};
 	}
+	for (int i = 0; i < array->size(); i++) {
+		Rect* rect = (*array)[i];
+		int bucket_index = static_cast<int>(round(rect->value() * BASE));
+		bucket_index /= static_cast<int>(pow(BASE, number_index +1));
+		bucket_index %= BASE;
+		buckets[bucket_index].emplace(rect->copy());
+	}
+	numbers_in_buckets = true;
 }
 
-Uint8 Radixsort::numberLengthBaseX(Uint16 numberDec) {
-	char *tmpArr = &this->toBaseXConverter(numberDec);
-	Sint8 counter = Radixsort::BUFFER_SIZE - 1;
-	while (counter >= 0 && tmpArr[counter] != '\0') {
-		counter--;
-	}
-	delete tmpArr;
-	return Radixsort::BUFFER_SIZE - (counter + 1);
-}
+void Radixsort::sort(int limit) {
+	swaps = 0;
+	while (!array->is_sorted()) {
 
-char& Radixsort::toBaseXConverter(Uint16 numberDec) {
-	char *buffer = new char[Radixsort::BUFFER_SIZE];
-	for (Uint8 i = 0; i < Radixsort::BUFFER_SIZE; i++) {
-		buffer[i] = '\0';
-	}
-	Uint8 counter = 1;
-	while (numberDec != 0) {
-		int tmp = numberDec % this->BASE;
-		buffer[Radixsort::BUFFER_SIZE - counter] = Radixsort::DIGITS[tmp];
-		numberDec /= this->BASE;
-		counter++;
-	}
+		if (!numbers_in_buckets) sort_in_buckets();
 
-	return *buffer;
-}
-
-void Radixsort::sort(int stepCount) {
-
-	for (Sint8 i = Radixsort::BUFFER_SIZE - 1;
-			i >= Radixsort::BUFFER_SIZE - this->largestNumberLength; i--) {
-		for (Uint16 j = 0; j < this->array->SIZE; j++) {
-			char *numberInBaseX = &this->toBaseXConverter(
-					this->array->getValue(j));
-
-			if (this->array->TYPE == RectangleType::INTERACTIVE) {
-				((InteractiveRectangle*) this->array->get(j))->setCompared();
+		int bucket_index = glob_bucket_index;
+		std::queue<Rect*>* bucket = &buckets[bucket_index];
+		for (int i = glob_array_index; i < array->size(); i++) {
+			while (bucket->empty() and bucket_index < buckets.size()) {
+				bucket = &buckets[++bucket_index];
 			}
-			this->buckets[this->digitToNumber(numberInBaseX[i])].push(
-					this->array->get(j));
-
-			this->renderer->renderArray();
-
-			delete numberInBaseX;
-		}
-		Uint16 counter = 0;
-		for (Uint8 j = 0; j < this->BASE; j++) {
-			while (!this->buckets[j].empty()) {
-				if (this->array->TYPE == RectangleType::INTERACTIVE) {
-					((InteractiveRectangle*) this->buckets[j].front())->setSwapped();
-				}
-				this->array->set(this->buckets[j].front(), counter++);
-				this->buckets[j].pop();
-
-				this->renderer->renderArray();
+			Rect* rect = bucket->front();
+			bucket->pop();
+			array->swap(i, rect);
+			swaps++;
+			if (swaps >= limit) {
+				glob_array_index = i + 1;
+				glob_bucket_index = bucket_index;
+				return;
 			}
 		}
-		this->renderer->renderArray();
+		++number_index;
+		glob_bucket_index = 0;
+		glob_array_index = 0;
+		numbers_in_buckets = false;
 	}
-
 }
 
+void Radixsort::reset() {
+	number_index = -1;
+	glob_bucket_index = 0;
+	glob_array_index = 0;
+	numbers_in_buckets = false;
+}

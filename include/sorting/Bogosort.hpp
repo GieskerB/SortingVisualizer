@@ -3,8 +3,6 @@
 
 #include "Sort.hpp"
 
-#include "../Array.hpp"
-
 class Bogosort: public Sort {
 
 public:

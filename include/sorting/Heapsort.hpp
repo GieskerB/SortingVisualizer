@@ -2,7 +2,6 @@
 #define INCLUDE_SORTING_HEAPSORT_HPP_
 
 #include "Sort.hpp"
-#include "../Array.hpp"
 #include "../StackMemory.hpp"
 
 class Heapsort: public Sort {

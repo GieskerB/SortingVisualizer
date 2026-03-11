@@ -22,6 +22,8 @@ add_executable(${PROJECT_NAME} main.cpp
         src/sorting/Selectionsort.cpp
         src/sorting/Shellsort.cpp
         src/sorting/Stoogesort.cpp
+        src/sorting/Cyclesort.cpp
+        include/sorting/Cyclesort.hpp
 )
 target_include_directories(${PROJECT_NAME} PUBLIC ${SDL3_INCLUDE_DIRS})
 

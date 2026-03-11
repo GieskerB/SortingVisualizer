@@ -5,6 +5,7 @@
 // #include "Bitonicsort.hpp" Must have an array size of 2^N
 #include "Bogosort.hpp"
 #include "Bubblesort.hpp"
+#include "Cyclesort.hpp"
 #include "Heapsort.hpp"
 #include "Insertionsort.hpp"
 #include "Mergesort.hpp"

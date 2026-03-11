@@ -47,7 +47,7 @@ SDL_AppResult SDL_AppInit(void **appstate, int argc, char *argv[]) {
 
 	std::srand((unsigned) std::time(nullptr)); // setup Random Seed
 
-	sorter = new Mergesort(&state->array);
+	sorter = new Cyclesort(&state->array);
 
 	*appstate = state;
 

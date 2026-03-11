@@ -5,7 +5,6 @@
 #include <memory>
 
 #include "Sort.hpp"
-#include "../Array.hpp"
 #include "../StackMemory.hpp"
 
 using StackMemMS = StackMemory<std::tuple<bool,std::vector<std::shared_ptr<Rect*>>, std::vector<std::shared_ptr<Rect*>>,int,int,int>,3>;

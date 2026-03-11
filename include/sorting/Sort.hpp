@@ -4,7 +4,6 @@
 #include <iostream>
 
 #include "../Array.hpp"
-#include "../Renderer.hpp"
 
 class Sort {
 protected:

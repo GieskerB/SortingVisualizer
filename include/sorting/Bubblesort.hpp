@@ -3,8 +3,6 @@
 
 #include "Sort.hpp"
 
-#include "../Array.hpp"
-
 class Bubblesort: public Sort {
 
 	int glob_i, glob_j;

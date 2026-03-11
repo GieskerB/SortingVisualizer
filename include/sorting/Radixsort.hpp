@@ -6,8 +6,6 @@
 
 #include "Sort.hpp"
 
-#include "../Array.hpp"
-
 // TODO add different bases
 
 // enum Base {

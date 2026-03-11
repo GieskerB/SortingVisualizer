@@ -35,7 +35,7 @@ Sort* sorter;
 SDL_AppResult SDL_AppInit(void **appstate, int argc, char *argv[]) {
 	if (!SDL_Init(SDL_INIT_VIDEO)) return SDL_APP_FAILURE;
 
-	auto *state = new AppState(1500, 700, 500);
+	auto *state = new AppState(1500, 700, 5000);
 
 	SDL_CreateWindowAndRenderer("Sorting Visualizer", state->window_width, state->window_height,SDL_WINDOW_RESIZABLE,
 	                            &state->window,
@@ -47,7 +47,7 @@ SDL_AppResult SDL_AppInit(void **appstate, int argc, char *argv[]) {
 
 	std::srand((unsigned) std::time(nullptr)); // setup Random Seed
 
-	sorter = new Radixsort(&state->array);
+	sorter = new Quicksort(&state->array);
 
 	*appstate = state;
 

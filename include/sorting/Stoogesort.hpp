@@ -3,7 +3,6 @@
 #define INCLUDE_SORTING_STOOGESORT_HPP_
 
 #include "Sort.hpp"
-#include "../Array.hpp"
 #include "../StackMemory.hpp"
 
 class Stoogesort: public Sort {

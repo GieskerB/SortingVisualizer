@@ -12,15 +12,17 @@ add_executable(${PROJECT_NAME} main.cpp
         src/rectangle/RainbowRect.cpp
         src/rectangle/Rect.cpp
         src/sorting/Sort.cpp
-        src/sorting/Bubblesort.cpp
         src/sorting/Bogosort.cpp
-        src/sorting/Insertionsort.cpp
-        src/sorting/Selectionsort.cpp
-        src/sorting/Stoogesort.cpp
+        src/sorting/Bubblesort.cpp
         src/sorting/Heapsort.cpp
+        src/sorting/Insertionsort.cpp
+        src/sorting/Mergesort.cpp
         src/sorting/Quicksort.cpp
         src/sorting/Radixsort.cpp
-        src/sorting/Mergesort.cpp)
+        src/sorting/Selectionsort.cpp
+        src/sorting/Shellsort.cpp
+        src/sorting/Stoogesort.cpp
+)
 target_include_directories(${PROJECT_NAME} PUBLIC ${SDL3_INCLUDE_DIRS})
 
 target_link_libraries(${PROJECT_NAME} PRIVATE SDL3::SDL3)

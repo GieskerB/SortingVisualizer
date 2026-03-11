@@ -3,9 +3,6 @@
 
 #include "Sort.hpp"
 
-#include "../Array.hpp"
-#include "../Renderer.hpp"
-
 class Selectionsort: public Sort {
 
 	int glob_i, glob_j;

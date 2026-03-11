@@ -12,7 +12,7 @@ void Radixsort::sort_in_buckets() {
 	}
 	for (int i = 0; i < array->size(); i++) {
 		Rect* rect = (*array)[i];
-		int bucket_index = static_cast<int>(round(rect->h * BASE));
+		int bucket_index = static_cast<int>(round(rect->value() * BASE));
 		bucket_index /= static_cast<int>(pow(BASE, number_index +1));
 		bucket_index %= BASE;
 		buckets[bucket_index].emplace(rect->copy());

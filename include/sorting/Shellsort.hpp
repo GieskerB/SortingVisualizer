@@ -5,6 +5,9 @@
 
 class Shellsort : public Sort {
 
+    bool done_reverse;
+    int glob_i, glob_j, glob_gab;
+
 public:
 
     Shellsort(Array *array);

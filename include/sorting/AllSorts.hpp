@@ -2,6 +2,7 @@
 #ifndef INCLUDE_SORTING_ALLSORTS_HPP_
 #define INCLUDE_SORTING_ALLSORTS_HPP_
 
+// #include "Bitonicsort.hpp" Must have an array size of 2^N
 #include "Bogosort.hpp"
 #include "Bubblesort.hpp"
 #include "Heapsort.hpp"

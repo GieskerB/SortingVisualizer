@@ -4,7 +4,14 @@
 #include "Rect.hpp"
 
 class InteractRect : public Rect {
-    static constexpr uint32_t DEFAULT_COLOR =
+
+    enum class RectState {
+        IDLE,     // White
+        COMPARED, // Red
+        SWAPPED   // Green
+    };
+
+    static constexpr uint32_t IDLE_COLOR =
             (255 << 24) | (255 << 16) | (255 << 8) | 255;
     static constexpr uint32_t COMPARED_COLOR =
             (0 << 24) | (255 << 16) | (0 << 8) | 255;

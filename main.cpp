@@ -64,12 +64,23 @@ void parse_args(int argc, char *argv[], Args *args) {
                     if (std::find(Args::algorithms.begin(), Args::algorithms.end(), algo) != Args::algorithms.end()) {
                         args->algo_id = Args::algo_ids.at(algo);
                         args->sorting_algorithm = algo;
+                    } else {
+                        std::cerr << "Not supported sorting algorithm!\n";
+                        std::cerr << "Currently implemented!\n";
+                        for (const auto &algo: Args::algorithms) {
+                            std::cerr << "\t-" << algo << "\n";
+                        }
                     }
 
                     continue;
             }
         } else {
-            std::cerr << arg << " -> currently only support single char arguments.\n";
+            std::cerr << "Invalid parameter <" << arg
+                      << ">. Sorting Visualizer only supports single character parameters:\n";
+            std::cerr << "\t-w width of the opened window.\n";
+            std::cerr << "\t-h height of the opened window.\n";
+            std::cerr << "\t-n number of elements in the array to sort.\n";
+            std::cerr << "\t-a name of the sorting algorithm.\n";
         }
     }
 }
@@ -77,8 +88,8 @@ void parse_args(int argc, char *argv[], Args *args) {
 // =====================================================================================================================
 
 struct AppState {
-    const unsigned int MAX_DELAY = 5;
 
+    const unsigned int MAX_DELAY = 5;
     int window_width, window_height;
 
     SDL_Window *window{nullptr};
@@ -86,34 +97,47 @@ struct AppState {
     Array array;
 
     AppState(const int width, const int height, const int array_size) : window_width(width), window_height(height),
-                                                                        array(
-                                                                                RAINBOW, array_size,
-                                                                                static_cast<float>(width),
-                                                                                static_cast<float>(height)
-                                                                        ) {
-    }
+                                                                        array(RAINBOW, array_size,
+                                                                              static_cast<float>(width),
+                                                                              static_cast<float>(height)) {}
 };
 
 Sort *sorter;
 
+static inline void print_welcome() {
+    std::cout << "===============================================\n";
+    std::cout << "        SDL SORTING VISUALIZER - v1.0\n";
+    std::cout << "===============================================\n";
+    std::cout << " Welcome! Watch your algorithms in real-time.\n\n";
+    std::cout << " CONTROLS:\n";
+    std::cout << "  [S] : Shuffle the list and reset\n";
+    std::cout << "  [B] : Boost speed (skips ~100 steps)\n\n";
+    std::cout << " Status: Ready to sort...\n";
+    std::cout << "-----------------------------------------------\n";
+}
+
 SDL_AppResult SDL_AppInit(void **appstate, int argc, char *argv[]) {
+    print_welcome();
+
     if (!SDL_Init(SDL_INIT_VIDEO)) return SDL_APP_FAILURE;
 
     Args args{};
-
     parse_args(argc, argv, &args);
 
     auto *state = new AppState(args.width, args.height, args.array_size);
 
-    SDL_CreateWindowAndRenderer("Sorting Visualizer", state->window_width, state->window_height, SDL_WINDOW_RESIZABLE,
+    std::string window_title{"Sorting Visualizer " + args.sorting_algorithm};
+    SDL_CreateWindowAndRenderer(window_title.c_str(), state->window_width, state->window_height, SDL_WINDOW_RESIZABLE,
                                 &state->window,
                                 &state->renderer);
+
     if (!state->window || !state->renderer) {
         SDL_Log("Window or Renderer creation failed: %s", SDL_GetError());
         return SDL_APP_FAILURE;
     }
 
-    std::srand((unsigned) std::time(nullptr)); // setup Random Seed
+    // setup Random Seed
+    std::srand((unsigned) std::time(nullptr));
 
     switch (args.algo_id) {
         case 1:

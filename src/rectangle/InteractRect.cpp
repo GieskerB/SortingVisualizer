@@ -26,9 +26,9 @@ void InteractRect::setSwapped() {
 
 void InteractRect::resetState() {
     if (m_swapped || m_compared) {
-        r = (DEFAULT_COLOR & 255 << 24) >> 24;
-        g = (DEFAULT_COLOR & 255 << 16) >> 16;
-        b = (DEFAULT_COLOR & 255 << 8) >> 8;
+        r = (IDLE_COLOR & 255 << 24) >> 24;
+        g = (IDLE_COLOR & 255 << 16) >> 16;
+        b = (IDLE_COLOR & 255 << 8) >> 8;
     }
     resetChecked();
     resetSwapped();

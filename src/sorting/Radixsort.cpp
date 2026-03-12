@@ -2,8 +2,6 @@
 
 #include <cmath>
 
-#define BASE 10
-
 Radixsort::Radixsort(Array *array) : Sort(array), number_index(-1), glob_bucket_index(0), glob_array_index(0),
                                      numbers_in_buckets(false) {}
 

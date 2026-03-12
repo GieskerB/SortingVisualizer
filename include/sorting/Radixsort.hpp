@@ -6,6 +6,8 @@
 
 #include "Sort.hpp"
 
+#define BASE 32
+
 // TODO add different bases
 
 // enum Base {
@@ -14,7 +16,7 @@
 
 class Radixsort : public Sort {
 
-    std::array<std::queue<Rect *>, 10> buckets;
+    std::array<std::queue<Rect *>, BASE> buckets;
 
     void sort_in_buckets();
 

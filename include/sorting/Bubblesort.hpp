@@ -3,15 +3,15 @@
 
 #include "Sort.hpp"
 
-class Bubblesort: public Sort {
+class Bubblesort : public Sort {
 
-	int glob_i, glob_j;
+    int glob_i, glob_j;
 
 public:
+    Bubblesort(Array *array);
 
-	Bubblesort(Array *array);
-	void sort(int) override;
-	void reset() override;
+    void sort(int) override;
+    void reset() override;
 
 };
 

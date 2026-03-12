@@ -1,6 +1,6 @@
 #include "../../include/sorting/Shellsort.hpp"
 
-Shellsort::Shellsort(Array* array): Sort(array), done_reverse(true), glob_i(1), glob_j(1), glob_gab(-1) {}
+Shellsort::Shellsort(Array *array) : Sort(array), done_reverse(true), glob_i(1), glob_j(1), glob_gab(-1) {}
 
 void Shellsort::sort(int limit) {
     if (array->is_sorted()) return;

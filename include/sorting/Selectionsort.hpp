@@ -3,16 +3,15 @@
 
 #include "Sort.hpp"
 
-class Selectionsort: public Sort {
+class Selectionsort : public Sort {
 
-	int glob_i, glob_j;
+    int glob_i, glob_j;
 
 public:
+    Selectionsort(Array *array);
 
-	Selectionsort(Array *array);
-	void sort(int) override;
-	void reset() override;
-
+    void sort(int) override;
+    void reset() override;
 };
 
 #endif /* INCLUDE_SORTING_SELECTIONSORT_HPP_ */

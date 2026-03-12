@@ -3,17 +3,16 @@
 
 #include "Sort.hpp"
 
-class Insertionsort: public Sort {
+class Insertionsort : public Sort {
 
-	bool done_reverse;
-	int glob_i, glob_j;
+    bool done_reverse;
+    int glob_i, glob_j;
 
 public:
+    Insertionsort(Array *array);
 
-	Insertionsort(Array *array);
-	void sort(int) override;
-	void reset() override;
-
+    void sort(int) override;
+    void reset() override;
 };
 
 #endif /* INCLUDE_SORTING_INSERTIONSORT_HPP_ */

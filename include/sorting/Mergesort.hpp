@@ -7,21 +7,20 @@
 #include "Sort.hpp"
 #include "../StackMemory.hpp"
 
-using StackMemMS = StackMemory<std::tuple<bool,std::vector<std::shared_ptr<Rect*>>, std::vector<std::shared_ptr<Rect*>>,int,int,int>,3>;
+using StackMemMS = StackMemory<std::tuple<bool, std::vector<std::shared_ptr<Rect *>>, std::vector<std::shared_ptr<Rect *>>, int, int, int>, 3>;
 
-class Mergesort: public Sort {
+class Mergesort : public Sort {
 
-	StackMemMS nodes;
+    StackMemMS nodes;
 
-	void divide(int, int, int,StackMemMS*);
-	void conquer(int, int, int, int,StackMemMS*);
+    void divide(int, int, int, StackMemMS *);
+    void conquer(int, int, int, int, StackMemMS *);
 
 public:
+    Mergesort(Array *);
 
-	Mergesort(Array*);
-	void sort(int) override;
-	void reset() override;
-
+    void sort(int) override;
+    void reset() override;
 };
 
 #endif /* INCLUDE_SORTING_MERGESORT_HPP_ */

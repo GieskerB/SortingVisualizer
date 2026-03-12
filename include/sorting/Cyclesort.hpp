@@ -3,17 +3,15 @@
 
 #include "Sort.hpp"
 
-class Cyclesort: public Sort{
+class Cyclesort : public Sort {
 
     int glob_cycle;
 
 public:
-
-    Cyclesort(Array*);
+    Cyclesort(Array *);
 
     void sort(int) override;
     void reset() override;
-
 };
 
 

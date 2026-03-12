@@ -9,8 +9,8 @@ class Shellsort : public Sort {
     int glob_i, glob_j, glob_gab;
 
 public:
-
     Shellsort(Array *array);
+
     void sort(int) override;
     void reset() override;
 };

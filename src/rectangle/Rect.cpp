@@ -5,19 +5,19 @@
 
 Rect::~Rect() = default;
 
-float& Rect::value() {
-	return h;
+float &Rect::value() {
+    return h;
 }
 
 void Rect::value(const float value) {
-	const float delta = h - value;
-	y -= delta;
-	h = value;
+    const float delta = h - value;
+    y -= delta;
+    h = value;
 }
 
 void Rect::draw(SDL_Renderer *renderer) const {
-	SDL_SetRenderDrawColor(renderer, r, g, b, 255);
-	SDL_RenderFillRect(renderer, this);
+    SDL_SetRenderDrawColor(renderer, r, g, b, 255);
+    SDL_RenderFillRect(renderer, this);
 }
 
 

@@ -4,7 +4,7 @@
 
 #include "../../include/sorting/Cyclesort.hpp"
 
-Cyclesort::Cyclesort(Array* array): Sort (array), glob_cycle(-1){
+Cyclesort::Cyclesort(Array *array) : Sort(array), glob_cycle(-1) {
 
 }
 
@@ -16,7 +16,7 @@ void Cyclesort::sort(const int limit) {
     int cycle_index = glob_cycle;
     while (!array->is_sorted()) {
         int smaller = 0;
-        Rect* curr = (*array)[cycle_index];
+        Rect *curr = (*array)[cycle_index];
         for (int i = cycle_index + 1; i < array->size(); i++) {
             if (array->value(i) < curr->value()) {
                 ++smaller;
@@ -36,6 +36,6 @@ void Cyclesort::sort(const int limit) {
     }
 }
 
-void Cyclesort::reset(){
+void Cyclesort::reset() {
     glob_cycle = -1;
 }

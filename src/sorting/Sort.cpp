@@ -5,6 +5,6 @@
 
 Sort::Sort(Array *arr) : swaps(0), array(arr) {}
 
-Sort::~Sort()=default;
+Sort::~Sort() = default;
 
 #endif /* INCLUDE_SORTER_CPP_ */

@@ -49,7 +49,6 @@ void parse_args(int argc, char *argv[], Args *args) {
 				continue;
 			case 'a':
 				const std::string& algo {argv[++i]};
-
 				if (std::find(Args::algorithms.begin(), Args::algorithms.end(),algo) != Args::algorithms.end()) {
 					args->algo_id = Args::algo_ids.at(algo);
 					args->sorting_algorithm = algo;
@@ -60,7 +59,6 @@ void parse_args(int argc, char *argv[], Args *args) {
 		} else {
 			std::cerr << arg << " -> currently only support single char arguments.\n";
 		}
-		std::cout << "i is now " << i << "\n";
 	}
 }
 

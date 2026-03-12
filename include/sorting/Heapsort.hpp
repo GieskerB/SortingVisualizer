@@ -4,29 +4,26 @@
 #include "Sort.hpp"
 #include "../StackMemory.hpp"
 
-class Heapsort: public Sort {
+class Heapsort : public Sort {
 
-	StackMemory<void,3> heapify_nodes, sift_down_nodes;
+    StackMemory<void, 3> heapify_nodes, sift_down_nodes;
 
-	bool full_sift;
+    bool full_sift;
+    int heap_size;
 
-	int heap_size;
+    static inline int left_child(int);
+    static inline int right_child(int);
+    inline bool has_left(int) const;
+    inline bool has_right(int) const;
 
-	static inline int left_child(int);
-	static inline int right_child(int);
-	inline bool has_left(int) const;
-	inline bool has_right(int) const;
-
-	void heapify(int, int, StackMemory<void,3>*);
-	void sift_down(int, int, StackMemory<void,3>*);
+    void heapify(int, int, StackMemory<void, 3> *);
+    void sift_down(int, int, StackMemory<void, 3> *);
 
 public:
+    Heapsort(Array *array);
 
-	Heapsort(Array *array);
-	void sort(int) override;
-	void reset() override;
-
-
+    void sort(int) override;
+    void reset() override;
 };
 
 #endif /* INCLUDE_SORTING_HEAPSORT_HPP_ */

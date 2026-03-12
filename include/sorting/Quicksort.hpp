@@ -6,20 +6,19 @@
 #include "Sort.hpp"
 #include "../StackMemory.hpp"
 
-using StackMemQS = StackMemory<std::tuple<bool,float,int,int,bool>,2>;
+using StackMemQS = StackMemory<std::tuple<bool, float, int, int, bool>, 2>;
 
-class Quicksort: public Sort {
+class Quicksort : public Sort {
 
-	StackMemQS nodes;
+    StackMemQS nodes;
 
-	void quicksort(int, int, int, StackMemory<std::tuple<bool,float,int,int,bool>, 2>*);
+    void quicksort(int, int, int, StackMemory<std::tuple<bool, float, int, int, bool>, 2> *);
 
 public:
+    Quicksort(Array *array);
 
-	Quicksort(Array *array);
-
-	void sort(int) override;
-	void reset() override;
+    void sort(int) override;
+    void reset() override;
 };
 
 #endif /* INCLUDE_SORTING_QUICKSORT_HPP_ */

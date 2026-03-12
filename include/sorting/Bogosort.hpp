@@ -3,14 +3,13 @@
 
 #include "Sort.hpp"
 
-class Bogosort: public Sort {
+class Bogosort : public Sort {
 
 public:
+    Bogosort(Array *array);
 
-	Bogosort(Array *array);
-	void sort(int ) override;
-	void reset() override;
-
+    void sort(int) override;
+    void reset() override;
 };
 
 #endif /* INCLUDE_SORTING_BOGOSORT_HPP_ */

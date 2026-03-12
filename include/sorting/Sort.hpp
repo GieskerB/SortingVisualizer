@@ -8,16 +8,15 @@
 class Sort {
 protected:
 
-	int swaps;
-	Array *array;
+    int swaps;
+    Array *array;
 
 public:
+    Sort(Array *);
 
-	Sort(Array *);
-	virtual ~Sort();
-	virtual void sort(int stepCount) = 0;
-	virtual void reset() = 0;
-
+    virtual ~Sort();
+    virtual void sort(int stepCount) = 0;
+    virtual void reset() = 0;
 };
 
 #endif /* INCLUDE_SORTER_HPP_ */

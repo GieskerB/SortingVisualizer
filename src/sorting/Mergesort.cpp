@@ -8,107 +8,107 @@
 #define TOTAL 5
 
 
-Mergesort::Mergesort(Array *array):Sort(array), nodes{{false,{},{},0,0,0}} {}
+Mergesort::Mergesort(Array *array) : Sort(array), nodes{{false, {}, {}, 0, 0, 0}} {}
 
-void Mergesort::divide(const int start, const int end, const int limit, StackMemMS* node) {
-	if (end-start < 2) return;
+void Mergesort::divide(const int start, const int end, const int limit, StackMemMS *node) {
+    if (end - start < 2) return;
 
-	if (node->children[0] == nullptr) {
-		node->children[0] = new StackMemMS{{false,{},{},0,0,0}};
-		node->children[1] = new StackMemMS{{false,{},{},0,0,0}};
-		node->children[2] = new StackMemMS{{false,{},{},0,0,0}};
-	}
+    if (node->children[0] == nullptr) {
+        node->children[0] = new StackMemMS{{false, {}, {}, 0, 0, 0}};
+        node->children[1] = new StackMemMS{{false, {}, {}, 0, 0, 0}};
+        node->children[2] = new StackMemMS{{false, {}, {}, 0, 0, 0}};
+    }
 
-	const int middle = (start + end) / 2;
+    const int middle = (start + end) / 2;
 
-	if (!node->children[0]->visited) divide(start, middle, limit, node->children[0]);
-	if (!node->children[1]->visited) divide(middle, end, limit, node->children[1]);
-	if (!node->children[2]->visited) conquer(start, middle, end,  limit, node->children[2]);
-	
-	node->visited = true;
+    if (!node->children[0]->visited) divide(start, middle, limit, node->children[0]);
+    if (!node->children[1]->visited) divide(middle, end, limit, node->children[1]);
+    if (!node->children[2]->visited) conquer(start, middle, end, limit, node->children[2]);
+
+    node->visited = true;
 }
 
-void Mergesort::conquer(const int start, const int middle, const int end, int limit, StackMemMS* node) {
+void Mergesort::conquer(const int start, const int middle, const int end, int limit, StackMemMS *node) {
 
-	if (node->children[0] == nullptr) {
-		node->children[0] = new StackMemMS{{false,{},{},0,0,0}};
-		node->children[1] = new StackMemMS{{false,{},{},0,0,0}};
-		node->children[2] = new StackMemMS{{false,{},{},0,0,0}};
-	}
+    if (node->children[0] == nullptr) {
+        node->children[0] = new StackMemMS{{false, {}, {}, 0, 0, 0}};
+        node->children[1] = new StackMemMS{{false, {}, {}, 0, 0, 0}};
+        node->children[2] = new StackMemMS{{false, {}, {}, 0, 0, 0}};
+    }
 
-	auto& arr1 = std::get<ARR1>(node->data);
-	auto& arr2 = std::get<ARR2>(node->data);
+    auto &arr1 = std::get<ARR1>(node->data);
+    auto &arr2 = std::get<ARR2>(node->data);
 
-	if (!std::get<ARR_FILLED>(node->data)) {
-		for (int i = start; i < middle; i++) {
-			arr1.push_back(std::make_shared<Rect*>(array->operator[](i)->copy()));
-		}
-		for (int i = middle; i < end; i++) {
-			arr2.push_back(std::make_shared<Rect*>(array->operator[](i)->copy()));
-		}
+    if (!std::get<ARR_FILLED>(node->data)) {
+        for (int i = start; i < middle; i++) {
+            arr1.push_back(std::make_shared<Rect *>(array->operator[](i)->copy()));
+        }
+        for (int i = middle; i < end; i++) {
+            arr2.push_back(std::make_shared<Rect *>(array->operator[](i)->copy()));
+        }
 
-		std::get<LEFT>(node->data) = 0;
-		std::get<RIGHT>(node->data) = 0;
-		std::get<TOTAL>(node->data) = start;
-		std::get<ARR_FILLED>(node->data) = true;
-	}
+        std::get<LEFT>(node->data) = 0;
+        std::get<RIGHT>(node->data) = 0;
+        std::get<TOTAL>(node->data) = start;
+        std::get<ARR_FILLED>(node->data) = true;
+    }
 
-	int& left_ptr = std::get<LEFT>(node->data);
-	int& right_ptr = std::get<RIGHT>(node->data);
-	int& total_ptr = std::get<TOTAL>(node->data);
+    int &left_ptr = std::get<LEFT>(node->data);
+    int &right_ptr = std::get<RIGHT>(node->data);
+    int &total_ptr = std::get<TOTAL>(node->data);
 
-	while (left_ptr < arr1.size() && right_ptr < arr2.size()) {
+    while (left_ptr < arr1.size() && right_ptr < arr2.size()) {
 
-		if ((*arr1[left_ptr])->value() > (*arr2[right_ptr])->value()) {
-			array->swap(total_ptr++,*arr2[right_ptr++]);
-			++swaps;
-			if (swaps >= limit) {
-				throw swaps;
-			}
-		} else {
-			array->swap(total_ptr++,*arr1[left_ptr++]);
-			++swaps;
-			if (swaps >= limit) {
-				throw swaps;
-			}
-		}
-	}
+        if ((*arr1[left_ptr])->value() > (*arr2[right_ptr])->value()) {
+            array->swap(total_ptr++, *arr2[right_ptr++]);
+            ++swaps;
+            if (swaps >= limit) {
+                throw swaps;
+            }
+        } else {
+            array->swap(total_ptr++, *arr1[left_ptr++]);
+            ++swaps;
+            if (swaps >= limit) {
+                throw swaps;
+            }
+        }
+    }
 
-	while (left_ptr < arr1.size()) {
-		array->swap(total_ptr++,*arr1[left_ptr++]);
-		++swaps;
-		if (swaps >= limit) {
-			throw swaps;
-		}
-	}
+    while (left_ptr < arr1.size()) {
+        array->swap(total_ptr++, *arr1[left_ptr++]);
+        ++swaps;
+        if (swaps >= limit) {
+            throw swaps;
+        }
+    }
 
-	while (right_ptr < arr2.size()) {
-		array->swap(total_ptr++,*arr2[right_ptr++]);
-		++swaps;
-		if (swaps >= limit) {
-			throw swaps;
-		}
-	}
+    while (right_ptr < arr2.size()) {
+        array->swap(total_ptr++, *arr2[right_ptr++]);
+        ++swaps;
+        if (swaps >= limit) {
+            throw swaps;
+        }
+    }
 
-	node->visited = true;
+    node->visited = true;
 }
 
 
 void Mergesort::sort(int limit) {
-	if (array->is_sorted()) return;
+    if (array->is_sorted()) return;
 
-	try {
-		divide(0, array->size(), limit, & nodes);
-	} catch (int swaps) {
-		return;
-	}
+    try {
+        divide(0, array->size(), limit, &nodes);
+    } catch (int swaps) {
+        return;
+    }
 }
 
 void Mergesort::reset() {
-	for (int i = 0; i < 2; ++i) {
-		delete nodes.children[i];
-		nodes.children[i] = nullptr;
-		nodes.data = {false,{},{},0,0,0};
-	}
+    for (int i = 0; i < 2; ++i) {
+        delete nodes.children[i];
+        nodes.children[i] = nullptr;
+        nodes.data = {false, {}, {}, 0, 0, 0};
+    }
 }
 

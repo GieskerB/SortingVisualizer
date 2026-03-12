@@ -5,18 +5,17 @@
 #include "Sort.hpp"
 #include "../StackMemory.hpp"
 
-class Stoogesort: public Sort {
+class Stoogesort : public Sort {
 
-	StackMemory<void,3> nodes;
+    StackMemory<void, 3> nodes;
 
-	void split(int, int, int,StackMemory<void,3>*);
+    void split(int, int, int, StackMemory<void, 3> *);
 
 public:
+    Stoogesort(Array *array);
 
-	Stoogesort(Array *array);
-	void sort(int) override;
-	void reset() override;
-
+    void sort(int) override;
+    void reset() override;
 };
 
 #endif /* INCLUDE_SORTING_STOOGESORT_HPP_ */
